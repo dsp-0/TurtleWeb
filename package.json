@@ -1,0 +1,14 @@
+{
+  "name": "Turtle robot control",
+  "version": "1.0.0",
+  "description": "Program turtle robot",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "dpypteva",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.3.1"
+  }
+}

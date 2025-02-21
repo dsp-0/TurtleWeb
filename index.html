@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Turtle control</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+    <meta charset="utf-8" />
+    <script src="./blockly/blockly_compressed.js"></script>
+    <script src="./blockly/blocks_compressed.js"></script>
+    <script src="./blockly/msg/ru.js"></script>
+    <script src="./blockly/anglefield.js"></script>
+    <script src="./blockly/colorfield.js"></script>
+    <style>
+      body {
+        background-color: #fff;
+        font-family: sans-serif;
+      }
+      h1 {
+        font-weight: normal;
+        font-size: 140%;
+      }
+      .demo {
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="clickme">Send to robot</button>
+
+    <p>Currently selected bluetooth device: <strong id="device-name"></strong></p>
+
+    <div class="demo">
+<!--      <button id="progButton">Show code</button>
+      <div id="codelab">
+        This is a simple demo of injecting Blockly into a fixed-sized 'div'
+        element.
+      </div>
+-->
+      <div id="blocklyDiv" style="height: 480px; width: 100%"></div>
+    </div>
+
+    <script src="./blockly.js"></script>
+
+
+    <script src="./renderer.js"></script>
+  </body>
+</html>
