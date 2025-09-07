@@ -16,8 +16,8 @@ async function testIt() {
   try {
     makeCode();
     const device = await navigator.bluetooth.requestDevice(options);
-    document.getElementById("device-name").innerHTML =
-      device.name || `ID: ${device.id}`;
+//    document.getElementById("device-name").innerHTML =
+//      device.name || `ID: ${device.id}`;
     const server = await device.gatt.connect();
     const service = await server.getPrimaryService("01942846-0661-7c4a-8953-e76f2ae2e6e2");
     const characteristic = await service.getCharacteristic("01942846-0761-7c4a-8953-e76f2ae2e6e2");
@@ -29,5 +29,10 @@ async function testIt() {
   }
 }
 
-document.getElementById("clickme").addEventListener("click", testIt);
-//document.getElementById("progButton").addEventListener("click", viewCode);
+
+if (navigator.bluetooth)
+  document.getElementById("clickme").addEventListener("click", testIt);
+else{
+  alert("Этот браузер не поддерживает WebBluetooth. Вы не сможете отправить программу роботу. Используйте совместимый браузер (Chrome, Opera, Яндекс и др.)");
+  document.getElementById("clickme").disabled = true;
+} 

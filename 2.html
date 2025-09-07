@@ -1,0 +1,178 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Робот-черепашка для обучения программированию</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .hero-bg {
+            filter: blur(5px);
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('roboturtle-image.png');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-4">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <h1 class="text-2xl font-bold">Робот-черепашка</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#features" class="hover:underline">Особенности</a></li>
+                    <li><a href="#pricing" class="hover:underline">Цены</a></li>
+                    <li><a href="#contact" class="hover:underline">Контакты</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-bg py-20 text-center text-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold mb-4">Учите программирование весело с роботом-черепашкой!</h2>
+            <p class="text-xl mb-6">Интерактивный робот для детей, который делает обучение программированию увлекательным и простым.</p>
+            <a href="#pricing" class="bg-yellow-500 text-black px-6 py-3 rounded-full font-semibold hover:bg-yellow-600">Купить сейчас</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Почему выбирают робота-черепашку?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <img src="https://via.placeholder.com/150?text=Иконка1" alt="Простота" class="mx-auto mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Простота в использовании</h3>
+                    <p>Интуитивный интерфейс и простые команды, подходящие для детей от 6 лет.</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://via.placeholder.com/150?text=Иконка2" alt="Интерактивность" class="mx-auto mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Интерактивное обучение</h3>
+                    <p>Робот выполняет команды, рисуя узоры и двигаясь, что делает обучение наглядным.</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://via.placeholder.com/150?text=Иконка3" alt="Образование" class="mx-auto mb-4">
+                    <h3 class="text-xl font-semibold mb-2">Образовательная ценность</h3>
+                    <p>Знакомит с основами программирования, логики и алгоритмов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Выберите свой комплект</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-2xl font-semibold mb-4">Базовый</h3>
+                    <p class="text-3xl font-bold mb-4">9 990 ₽</p>
+                    <ul class="text-left mb-6">
+                        <li class="mb-2">✔ Робот-черепашка</li>
+                        <li class="mb-2">✔ Базовое приложение</li>
+                        <li class="mb-2">✔ Руководство пользователя</li>
+                    </ul>
+                    <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700">Купить</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center border-2 border-yellow-500">
+                    <h3 class="text-2xl font-semibold mb-4">Стандартный</h3>
+                    <p class="text-3xl font-bold mb-4">14 990 ₽</p>
+                    <ul class="text-left mb-6">
+                        <li class="mb-2">✔ Робот-черепашка</li>
+                        <li class="mb-2">✔ Расширенное приложение</li>
+                        <li class="mb-2">✔ Руководство + уроки</li>
+                        <li class="mb-2">✔ Дополнительные аксессуары</li>
+                    </ul>
+                    <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700">Купить</a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-2xl font-semibold mb-4">Премиум</h3>
+                    <p class="text-3xl font-bold mb-4">19 990 ₽</p>
+                    <ul class="text-left mb-6">
+                        <li class="mb-2">✔ Робот-черепашка</li>
+                        <li class="mb-2">✔ Полное приложение</li>
+                        <li class="mb-2">✔ Курс программирования</li>
+                        <li class="mb-2">✔ Дополнительные аксессуары</li>
+                        <li class="mb-2">✔ Поддержка 1 год</li>
+                    </ul>
+                    <a href="#" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700">Купить</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Свяжитесь с нами</h2>
+            <div class="max-w-lg mx-auto">
+                <div class="mb-4">
+                    <label for="name" class="block text-sm font-medium text-gray-700">Имя</label>
+                    <input type="text" id="name" class="mt-1 p-2 w-full border rounded-md" placeholder="Ваше имя">
+                </div>
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700">Электронная почта</label>
+                    <input type="email" id="email" class="mt-1 p-2 w-full border rounded-md" placeholder="Ваш email">
+                </div>
+                <div class="mb-4">
+                    <label for="message" class="block text-sm font-medium text-gray-700">Сообщение</label>
+                    <textarea id="message" class="mt-1 p-2 w-full border rounded-md" rows="4" placeholder="Ваше сообщение"></textarea>
+                </div>
+                <button class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700">Отправить</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white py-6">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2025 Робот-черепашка. Все права защищены.</p>
+        </div>
+    </footer>
+</body>
+</html>
