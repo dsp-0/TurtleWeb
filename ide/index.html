@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+	<script src="/translate.js" data-dir="/locales/ide"></script>
     <title>Turtle control</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
     <meta charset="utf-8" />
@@ -24,7 +25,8 @@
     </style>
   </head>
   <body>
-    <button id="clickme">Send to robot</button>
+    <button id="clickme" data-t="send-to-robot"></button>
+	<button id="clear-workspace" data-t="workspace-clear"></button>
 <!--    <p>Currently selected bluetooth device: <strong id="device-name"></strong></p>
 -->
     <div class="demo">
@@ -35,5 +37,12 @@
 
 
     <script src="./renderer.js"></script>
+	<div style="position:absolute;top:0;right:0;border-radius:5px">
+		<select id="language-selector">
+			<option value="*">default</option>
+			<option value="en">english / english (en)</option>
+			<option value="ru">russian / русский (ru)</option>
+		</select>
+	</div>
   </body>
 </html>

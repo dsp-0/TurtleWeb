@@ -1,0 +1,37 @@
+send-to-robot "Send to robot"
+selected-device "Currently selected bluetooth device:"
+
+{workspace-
+	clear "Clear workspace"
+}
+
+{block-
+	{forward-
+		message0 "Forward %1 %2 %3"
+		tooltip "Move forward"
+	}
+	{back-
+		message0 "Backward %1 %2 %3"
+		tooltip "Move backward"
+	}
+	{feather_up-
+		message0 "feather up %1"
+		tooltip "While the feather is up, the robot does not leave a trail (movement only)"
+	}
+	{feather_down-
+		message0 "feather down %1"
+		tooltip "While the feather is down, the robot leaves a trail (drawing)"
+	}
+	{eyes-
+		message0 "eye left %1 , right %2 %3"
+		tooltip "Change eyes color"
+	}
+	{right-
+		message0 "turn %1 clockwise %2"
+		tooltip "Rotate clockwise"
+	}
+	{left-
+		message0 "turn %1 counter-clockwise %2"
+		tooltip "Rotate counter-clockwise"
+	}
+}

@@ -1,6 +1,10 @@
 //import * as Blockly from 'blockly/core';
 //import {javascriptGenerator, Order} from 'blockly/javascript';
 
+let demoWorkspace;
+
+document.addEventListener("DOMContentLoaded",async function(){
+
 let g=[1,2,3,4,5,6,7,9,10,11,13,15,17,20,23,26,30,35,41,47,55,64,75,87,102,120,142,168,199,235,256],
     rb=[1,2,3,4,6,9,13,20,29,43,65,99,144,196,256];
 let ig=0,irb=0;
@@ -13,12 +17,13 @@ for(let i=0; i<256; i++){
 }
 
 registerFieldAngle();
+t = await getT();
 Blockly.common.defineBlocksWithJsonArray([
 {
   "type": "forward",
-  "tooltip": "Ехать вперед",
+
   "helpUrl": "",
-  "message0": "вперед %1 %2 %3",
+
   "args0": [
     {
       "type": "field_number",
@@ -52,9 +57,9 @@ Blockly.common.defineBlocksWithJsonArray([
 },
 {
   "type": "back",
-  "tooltip": "Ехать назад",
+
   "helpUrl": "",
-  "message0": "назад %1 %2 %3",
+
   "args0": [
     {
       "type": "field_number",
@@ -88,9 +93,9 @@ Blockly.common.defineBlocksWithJsonArray([
 },
 {
   "type": "feather_up",
-  "tooltip": "Поднять перо",
+
   "helpUrl": "",
-  "message0": "Поднять перо %1",
+
   "args0": [
     {
       "type": "input_dummy",
@@ -103,9 +108,9 @@ Blockly.common.defineBlocksWithJsonArray([
 },
 {
   "type": "feather_down",
-  "tooltip": "Опустить перо",
+
   "helpUrl": "",
-  "message0": "Опустить перо %1",
+
   "args0": [
     {
       "type": "input_dummy",
@@ -118,7 +123,7 @@ Blockly.common.defineBlocksWithJsonArray([
 },
 {
   "type": 'eyes',
-  "message0": 'Глаз левый %1 , правый %2 %3',
+
   "args0": [
     {
       "type": 'field_colour_hsv_sliders',
@@ -141,9 +146,9 @@ Blockly.common.defineBlocksWithJsonArray([
 },
 {
   "type": "right",
-  "tooltip": "Повернуть",
+
   "helpUrl": "",
-  "message0": "повернуть на %1 вправо %2",
+
   "args0": [{
     "type": "field_angle",
       "name": "angle",
@@ -163,9 +168,7 @@ Blockly.common.defineBlocksWithJsonArray([
 },
 {
   "type": "left",
-  "tooltip": "Повернуть",
   "helpUrl": "",
-  "message0": "повернуть на %1 влево %2",
   "args0": [{
     "type": "field_angle",
       "name": "angle",
@@ -183,7 +186,11 @@ Blockly.common.defineBlocksWithJsonArray([
   "colour": 0
 }
 
-]);
+].map(block => {
+	if (!block["tooltip"]) block["tooltip"] = t("block-" + block["type"] + "-tooltip");
+	if (!block["message0"]) block["message0"] = t("block-" + block["type"] + "-message0");
+	return block;
+}) );
 
       const toolbox = {
         kind: 'flyoutToolbox',
@@ -301,18 +308,26 @@ bytecodeGenerator.forBlock['left'] = function(block, generator) {
   return 'R-'+angle;
 };
 
-const demoWorkspace = Blockly.inject('blocklyDiv', {
+demoWorkspace = Blockly.inject('blocklyDiv', {
   media: './blockly/media/',
   toolbox: toolbox,
   renderer: 'zelos',
-  zoom:
-    {controls: true,
-    wheel: true,
-    startScale: 0.8,
-    maxScale: 1,
-    minScale: 0.3,
-    scaleSpeed: 1.2,
-    pinch: true},
+  zoom: {
+		controls: true,
+		wheel: true,
+		startScale: 0.8,
+		maxScale: 1,
+		minScale: 0.3,
+		scaleSpeed: 1.2,
+		// pinch: true
+	},
+	move: {
+		scrollbars: {
+			horizontal: true,
+			vertical: true,
+		},
+		drag: true,
+	},
 });
 
 progBuf=new Uint16Array(0);
@@ -338,3 +353,50 @@ function makeCode(){
   progBuf=data.slice(0,i);
 //  document.getElementById('codelab').innerText=code;
 }
+
+
+
+function saveWorkspace(w){
+	localStorage["workspace"] = Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(w))
+}
+
+function saveDemo(){
+	saveWorkspace(demoWorkspace);
+}
+
+function loadWorkspace(w){
+	Blockly.Xml.clearWorkspaceAndLoadFromXml(Blockly.utils.xml.textToDom(localStorage["workspace"]), w);
+}
+
+function loadDemo(){
+	loadWorkspace(demoWorkspace);
+}
+
+if (localStorage["workspace"]){
+	loadDemo()
+}
+demoWorkspace.addChangeListener( event => {
+	if (event.type === Blockly.Events.BLOCK_CREATE ||
+		event.type === Blockly.Events.BLOCK_DELETE ||
+		event.type === Blockly.Events.BLOCK_MOVE ||
+		event.type === Blockly.Events.BLOCK_CHANGE){
+		saveDemo();
+	}
+});
+
+savebtn = document.getElementById("save-to-file");
+clearbtn = document.getElementById("clear-workspace");
+if (savebtn){
+
+}
+if (clearbtn){
+	clearbtn.addEventListener("click", ()=>{
+		localStorage.removeItem("workspace");
+		location.reload();
+	})
+}
+
+
+})().catch(err => {
+	console.error("blockly.js fail: " + err);
+});
