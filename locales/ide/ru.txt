@@ -1,8 +1,15 @@
 send-to-robot "Отправить на робота"
 selected-device "Выбранное устройство:"
 
+{robot-
+	select "Выбрать робота"
+	send "Отправить на робота"
+}
+
 {workspace-
-	clear "Очистить поле"
+	clear "Очистить"
+	save "Сохранить"
+	load "Загрузить"
 }
 
 {block-

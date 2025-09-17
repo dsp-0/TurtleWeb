@@ -1,8 +1,15 @@
 send-to-robot "Send to robot"
 selected-device "Currently selected bluetooth device:"
 
+{robot-
+	select "Select robot"
+	send "Send to robot"
+}
+
 {workspace-
-	clear "Clear workspace"
+	clear "Clear"
+	save "Save"
+	load "Load"
 }
 
 {block-
