@@ -4,6 +4,7 @@ selected-device "Выбранное устройство:"
 {robot-
 	select "Выбрать робота"
 	send "Отправить на робота"
+	select_and_send "Выбрать и отправить"
 }
 
 {workspace-
@@ -40,5 +41,18 @@ selected-device "Выбранное устройство:"
 	{left-
 		message0 "повернуть влево на %1 %2"
 		tooltip "Поворот против часовой"
+	}
+	{start-
+		message0 "старт %1"
+		tooltip "Program starts here"
+	}
+	{move-
+		message0 "двигатся %2 %1"
+	}
+	{rotate-
+		message0 "поворот %1 degrees"
+	}
+	{const_number-
+		message0 "число %1 %2"
 	}
 }

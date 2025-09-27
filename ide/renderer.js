@@ -30,36 +30,81 @@ async function testIt() {
 }
 
 let deviceSelected = null;
+let server = null;
 
 {
 	let selectbtn = document.getElementById("select-robot");
 	let sendbtn = document.getElementById("send-to-robot");
+	let selectandsendbtn = document.getElementById("select-and-send");
+
 	if(selectbtn){
 		selectbtn.addEventListener("click",async ()=>{
 			let options = {filters:[
 					{ services: ["01942846-0661-7c4a-8953-e76f2ae2e6e2"] },
 			]};
 			deviceSelected = await navigator.bluetooth.requestDevice(options);
+			server = await deviceSelected.gatt.connect();
+			localStorage["deviceID"] = deviceSelected.id;
 		})
 	}
+
 	if(sendbtn){
 		sendbtn.addEventListener("click", async()=>{
-			if (!deviceSelected){
-				alert("select a robot first");
-				return;
-			}
 			try{
-				let server = await deviceSelected.gatt.connect();
+				if (!deviceSelected){
+					alert("device not selected");
+					return;
+				}
+				// let server = await deviceSelected.gatt.connect();
 				let service = await server.getPrimaryService("01942846-0661-7c4a-8953-e76f2ae2e6e2");
 				let chars = await service.getCharacteristic("01942846-0761-7c4a-8953-e76f2ae2e6e2");
 				makeCode();
+				await chars.writeValueWithResponse(progBuf);
+				// await server.disconnect();
+			} catch (err) {
+				console.error(err)
+				alert("Failed to send. Try reconnecting.");
+			}
+		})
+	}
+
+	if(selectandsendbtn){
+		selectandsendbtn.addEventListener("click", async ()=>{
+			let start = demoWorkspace.getBlocksByType("start");
+			if(start.length==0){
+				alert("No start block found");
+				return;
+			}
+			if(start,length>1){
+				alert("More than one start block found");
+				return
+			}
+			start = start[0];
+			makeCode(eval(makejs(demoWorkspace)));
+			
+			let options = {filters:[
+					{ services: ["01942846-0661-7c4a-8953-e76f2ae2e6e2"] },
+			]};
+			deviceSelected = await navigator.bluetooth.requestDevice(options);
+			server = await deviceSelected.gatt.connect();
+			// localStorage["deviceID"] = deviceSelected.id;
+			try{
+				// if (!deviceSelected){
+				// 	alert("device not selected");
+				// 	return;
+				// }
+				// let server = await deviceSelected.gatt.connect();
+
+				let service = await server.getPrimaryService("01942846-0661-7c4a-8953-e76f2ae2e6e2");
+				let chars = await service.getCharacteristic("01942846-0761-7c4a-8953-e76f2ae2e6e2");
+				// makeCode();
 				await chars.writeValueWithResponse(progBuf);
 				await server.disconnect();
 			} catch (err) {
 				console.error(err)
 				alert("Failed to send. Try reconnecting.");
 			}
-		})
+		});
 	}
 }
 

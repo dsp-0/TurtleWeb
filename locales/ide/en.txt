@@ -4,6 +4,7 @@ selected-device "Currently selected bluetooth device:"
 {robot-
 	select "Select robot"
 	send "Send to robot"
+	select_and_send "Select and send"
 }
 
 {workspace-
@@ -40,5 +41,18 @@ selected-device "Currently selected bluetooth device:"
 	{left-
 		message0 "turn %1 counter-clockwise %2"
 		tooltip "Rotate counter-clockwise"
+	}
+	{start-
+		message0 "start %1"
+		tooltip "Program starts here"
+	}
+	{move-
+		message0 "move %2 %1"
+	}
+	{rotate-
+		message0 "turn %1 degrees"
+	}
+	{const_number-
+		message0 "number %1 %2"
 	}
 }

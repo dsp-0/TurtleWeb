@@ -7,8 +7,10 @@ let wtot;
 let saveWorkspace;
 let loadWorkspace;
 let makeCode;
-
-document.addEventListener("DOMContentLoaded",async function(){
+let progBuf;
+let hexToRgb;
+let bytecodeGenerator;
+let code;
 
 let g=[1,2,3,4,5,6,7,9,10,11,13,15,17,20,23,26,30,35,41,47,55,64,75,87,102,120,142,168,199,235,256],
     rb=[1,2,3,4,6,9,13,20,29,43,65,99,144,196,256];
@@ -21,240 +23,18 @@ for(let i=0; i<256; i++){
   else xrb[i]=++irb;
 }
 
+console.log(document)
+document.addEventListener("DOMContentLoaded",async function(){
+
 registerFieldAngle();
 t = await getT();
-Blockly.common.defineBlocksWithJsonArray([
-{
-  "type": "forward",
-
-  "helpUrl": "",
-
-  "args0": [
-    {
-      "type": "field_number",
-      "name": "distance",
-      "value": 10,
-      "min": -3000,
-      "max": 3000
-    },
-    {
-      "type": "field_dropdown",
-      "name": "units",
-      "options": [
-        [
-          "cm",
-          "10"
-        ],
-        [
-          "mm",
-          "1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 0
-},
-{
-  "type": "back",
-
-  "helpUrl": "",
-
-  "args0": [
-    {
-      "type": "field_number",
-      "name": "distance",
-      "value": 10,
-      "min": -128,
-      "max": 127
-    },
-    {
-      "type": "field_dropdown",
-      "name": "units",
-      "options": [
-        [
-          "cm",
-          "10"
-        ],
-        [
-          "mm",
-          "1"
-        ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 0
-},
-{
-  "type": "feather_up",
-
-  "helpUrl": "",
-
-  "args0": [
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 60
-},
-{
-  "type": "feather_down",
-
-  "helpUrl": "",
-
-  "args0": [
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 60
-},
-{
-  "type": 'eyes',
-
-  "args0": [
-    {
-      "type": 'field_colour_hsv_sliders',
-      "name": 'left',
-      "colour": '#40E0D0',
-    },
-    {
-      "type": 'field_colour_hsv_sliders',
-      "name": 'right',
-      "colour": '#CCCCFF',
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 219
-},
-{
-  "type": "right",
-
-  "helpUrl": "",
-
-  "args0": [{
-    "type": "field_angle",
-      "name": "angle",
-      "clockwise": true,
-      "offset": 90,
-      "value": 90,
-      "max": 180
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 0
-},
-{
-  "type": "left",
-  "helpUrl": "",
-  "args0": [{
-    "type": "field_angle",
-      "name": "angle",
-      "offset": 90,
-      "value": 90,
-      "max": 180
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 0
-}
-
-].map(block => {
+Blockly.common.defineBlocksWithJsonArray(BLOCKS.map(block => {
 	if (!block["tooltip"]) block["tooltip"] = t("block-" + block["type"] + "-tooltip");
 	if (!block["message0"]) block["message0"] = t("block-" + block["type"] + "-message0");
 	return block;
 }) );
 
-      const toolbox = {
-        kind: 'flyoutToolbox',
-        contents: [
-          {
-            kind: 'block',
-            type: 'forward',
-          },
-          {
-            kind: 'block',
-            type: 'back',
-          },
-          {
-            kind: 'block',
-            type: 'right',
-          },
-          {
-            kind: 'block',
-            type: 'left',
-          },
-          {
-            kind: 'block',
-            type: 'feather_up',
-          },
-          {
-            kind: 'block',
-            type: 'feather_down',
-          },
-          {
-            kind: 'block',
-            type: 'eyes',
-          },
-          
-          /*{
-            kind: 'block',
-            type: 'controls_repeat',
-          },
-          {
-            kind: 'block',
-            type: 'math_number',
-            fields: {
-              NUM: 123,
-            },
-          },*/
-          //{
-          //  kind: 'block',
-          //  type: 'math_arithmetic',
-          //},
-          //{
-          //  kind: 'block',
-          //  type: 'text',
-          //},
-          //{
-          //  kind: 'block',
-          //  type: 'text_print',
-          //},
-        ],
-      };
-const bytecodeGenerator = new Blockly.Generator('bytecode');
+bytecodeGenerator = new Blockly.Generator('bytecode');
 
 bytecodeGenerator.scrub_ = function(block, code, thisOnly) {
   const nextBlock =
@@ -286,7 +66,13 @@ bytecodeGenerator.forBlock['feather_down'] = function(block, generator) {
   return 'D';
 };
 
-const hexToRgb = hex =>
+BLOCKS.forEach(block => {
+	if(!bytecodeGenerator.forBlock[block["type"]]){
+		bytecodeGenerator.forBlock[block["type"]] = (b,g)=>"";
+	}
+});
+
+hexToRgb = hex =>
   hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
              ,(m, r, g, b) => '#' + r + r + g + g + b + b)
     .substring(1).match(/.{2}/g)
@@ -338,12 +124,16 @@ demoWorkspace = Blockly.inject('blocklyDiv', {
 
 progBuf=new Uint16Array(0);
 
-makeCode = function(){
+makeCode = function(c){
+	if(!c)
   code=bytecodeGenerator.workspaceToCode(demoWorkspace);
+	else code=c;
   data=new Uint16Array(1000);
   i=0;
   for(s of code.split(','))
   {
+	if(s.length==0)continue;
+	if(i==1000) break; // avoid overflow
     if(s[0]=='F') data[i]=(+s.substring(1))&0x03FF|0x8000;
     else if(s[0]=='B') data[i]=(-s.substring(1))&0x03FF|0x8000;
     else if(s[0]=='R') data[i]=(+s.substring(1))&0x01FF|0x8400;
@@ -358,6 +148,7 @@ makeCode = function(){
   }
   progBuf=data.slice(0,i);
 //  document.getElementById('codelab').innerText=code;
+	return progBuf;
 }
 
 wtot =function (w){
@@ -424,6 +215,4 @@ document.getElementById("load-from-file").addEventListener("click", e=>{
 	loadinput.click()
 })
 
-})().catch(err => {
-	console.error("blockly.js fail: " + err);
 });

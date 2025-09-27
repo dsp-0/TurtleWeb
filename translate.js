@@ -1,5 +1,5 @@
 
-const t_supported = ["en", "ru"];
+const t_supported = ["en", "ru", "ar"];
 
 async function loadLocale(locale){
 	locale = locale_dir + "/" + locale + ".txt";
@@ -64,7 +64,9 @@ async function getT(){
 	if (dict_locale != getLocale() || dict == null){	
 		await reloadLocales();
 	}
-	return key => dict[key];
+	return key => {
+		if(dict[key]) return dict[key]; else return "?"+locale+":"+key+"?";
+	};
 }
 
 async function reloadLocales(){
