@@ -1,5 +1,5 @@
 
-const t_supported = ["en", "ru"];
+const t_supported = ["en", "ru", "ar"];
 
 async function loadLocale(locale){
 	locale = locale_dir + "/" + locale + ".txt";
