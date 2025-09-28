@@ -100,17 +100,26 @@ bytecodeGenerator.forBlock['left'] = function(block, generator) {
 };
 
 demoWorkspace = Blockly.inject('blocklyDiv', {
-  media: './blockly/media/',
-  toolbox: toolbox,
-  renderer: 'zelos',
-  zoom: {
+	media: './blockly/media/',
+	toolbox: toolbox,
+	renderer: 'zelos',
+	rtl: locale=="ar",
+	maxInstances:{
+		start:1
+	},
+	grid: {
+		spacing: 40,
+		snap: true,
+		length: 5,
+		colour: "#888",
+	},
+	zoom: {
 		controls: true,
-		// wheel: true,
 		startScale: 0.8,
 		maxScale: 1,
-		minScale: 0.3,
-		scaleSpeed: 1.2,
-		// pinch: true
+		minScale: 0.1,
+		scaleSpeed: 1.5,
+		wheel: true,
 	},
 	move: {
 		scrollbars: {
@@ -118,7 +127,7 @@ demoWorkspace = Blockly.inject('blocklyDiv', {
 			vertical: true,
 		},
 		drag: true,
-		wheel: true
+		wheel: true,
 	},
 });
 

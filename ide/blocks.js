@@ -1,3 +1,13 @@
+
+const COLORS={
+	inline: "#aaaaaa",
+	movement: 0,
+	control: 120,
+	math: "#00aaaa",
+	shadow: "#000000",
+	misc: "#ff00aa"
+}
+
 const BLOCKS=[
 	{
 	"type": "forward",
@@ -31,7 +41,7 @@ const BLOCKS=[
 	],
 	"previousStatement": null,
 	"nextStatement": null,
-	"colour": "#aaaaaa"
+	"colour": COLORS.inline,
 	},
 	{
 	"type": "back",
@@ -65,7 +75,7 @@ const BLOCKS=[
 	],
 	"previousStatement": null,
 	"nextStatement": null,
-	"colour": "#aaaaaa"
+	"colour": COLORS.inline,
 	},
 	{
 	"type": "feather_up",
@@ -80,7 +90,7 @@ const BLOCKS=[
 	],
 	"previousStatement": null,
 	"nextStatement": null,
-	"colour": "#aaaaaa"
+	"colour": COLORS.inline,
 	},
 	{
 	"type": "feather_down",
@@ -93,7 +103,7 @@ const BLOCKS=[
 	],
 	"previousStatement": null,
 	"nextStatement": null,
-	"colour": "#aaaaaa"
+	"colour": COLORS.inline,
 	},
 	{
 	"type": 'eyes',
@@ -116,7 +126,7 @@ const BLOCKS=[
 	],
 	"previousStatement": null,
 	"nextStatement": null,
-	"colour": "#aaaaaa"
+	"colour": COLORS.inline,
 	},
 	{
 	"type": "right",
@@ -136,7 +146,7 @@ const BLOCKS=[
 	],
 	"previousStatement": null,
 	"nextStatement": null,
-	"colour": "#aaaaaa"
+	"colour": COLORS.inline,
 	},
 	{
 	"type": "left",
@@ -155,24 +165,24 @@ const BLOCKS=[
 	],
 	"previousStatement": null,
 	"nextStatement": null,
-	"colour": "#aaaaaa"
+	"colour": COLORS.inline,
 	},
 	{
-		"type": "start",
-		"args0": [
+		type: "start",
+		args0: [
 			{
-				"type": "input_dummy",
-				"name": "NAME"
+				type: "input_dummy",
+				name: "NAME"
 			},
 		],
-		"nextStatement": null,
-		"colour": 120
+		nextStatement: null,
+		colour: COLORS.control,
 	},
 	{
-		"type": "blank",
-		"previousStatement": null,
-		"nextStatement": null,
-		"colour": 120
+		type: "blank",
+		previousStatement: null,
+		nextStatement: null,
+		output: null,
 	},
 	{
 		type: "move",
@@ -191,6 +201,7 @@ const BLOCKS=[
 			{
 				type: "input_value",
 				name: "dist",
+				check: ["num", "float"],
 			},
 		]
 	},
@@ -202,6 +213,7 @@ const BLOCKS=[
 			{
 				type: "input_value",
 				name: "angle",
+				check: ["num", "float"],
 			},
 		]
 	},
@@ -217,7 +229,7 @@ const BLOCKS=[
 				type: "input_end_row",
 			},
 		],
-		output: null,
+		output: "num",
 		colour: 120,
 	},
 	{
@@ -233,15 +245,142 @@ const BLOCKS=[
 				type: "input_end_row",
 			},
 		],
-		output: null,
+		output: "num",
+	},
+	{
+		type: "shadow_bool",
+		message0: "%1 %2",
+		output: "bool",
+		args0: [
+			{
+				type: "field_checkbox",
+				name: "value"
+			},{type:"input_end_row"}
+		],
+	},
+	{
+		type: "repeat",
+		previousStatement: null, nextStatement: null,
 		colour: 120,
+		args0: [
+			{
+				type: "input_value",
+				name: "times",
+				check: "num"
+			},
+			{type: "input_dummy",},
+			{
+				type: "input_statement",
+				name: "body",
+			}
+		],
+	},
+	{
+		type: "binary_op_num",
+		output: "num",
+		colour: COLORS.math,
+		message0: "%1 %2 %3",
+		inputsInline: true,
+		args0: [
+			{
+				type: "input_value",
+				name: "left",
+				check: ["num","bool"],
+			},
+			{
+				type: "field_dropdown",
+				options: [
+					["+","sum"],
+					["-","diff"],
+					["*","prod"],
+					["/","quot"],
+				],
+				name: "op"
+			},
+			{
+				type: "input_value",
+				name: "right",
+				check: ["num","bool"],
+			},
+		],
+		inputs:{
+			left:{ shadow: {
+				type: "shadow_number",
+				fields:{value:0}
+			}},
+			right:{ shadow: {
+				type: "shadow_number",
+				fields:{value:0}
+			}},
+		}
+	},
+	{
+		type: "binary_op_bool",
+		output: "bool",
+		colour: COLORS.math,
+		message0: "%1 %2 %3",
+		inputsInline: true,
+		args0: [
+			{
+				type: "input_value",
+				name: "left",
+				check: ["num", "bool"],
+			},
+			{
+				type: "field_dropdown",
+				options: [
+					["=", "eq"],
+					["<","lt"],
+					[">","gt"],
+					["<=","le"],
+					[">=","ge"],
+					["<>", "ne"],
+				],
+				name: "op"
+			},
+			{
+				type: "input_value",
+				name: "right",
+				check: ["num","bool"],
+			},
+		],
+		inputs:{
+			left:{ shadow: {
+				type: "shadow_number",
+				fields:{value:0}
+			}},
+			right:{ shadow: {
+				type: "shadow_number",
+				fields:{value:0}
+			}},
+		}
+	},
+	{
+		type: "_misc_connector",
+		output: null, previousStatement: null, nextStatement: null,
+		colour: COLORS.misc,
+	},
+	{
+		type: "_misc_null"
+	},
+	{
+		type: "_misc_log",
+		previousStatement: null, nextStatement: null,
+		colour: COLORS.misc,
+		
 	},
 ]
+const BLOCKSD = BLOCKS.reduce((acc,block)=>{acc[block.type]=block; return acc},{});
 
 let toolbox;
 
 {
-	block = type => (typeof(type)=="string" ? {kind:"block", type:type} : type);
+	block = type => {
+		let b = (typeof(type)=="string" ? {kind:"block", type:type} : type);
+		if(BLOCKSD[type]?.inputs) b.inputs=BLOCKSD[type].inputs;
+		if(BLOCKSD[type]?.fields) b.inputs=BLOCKSD[type].fields;
+		return b;
+	};
 
 	toolbox = {
 		kind: "categoryToolbox",
@@ -263,7 +402,17 @@ let toolbox;
 				kind: "category",
 				name: "control logic",
 				contents: [
-					"start"
+					"start",
+					{
+						kind: "block",
+						type: "repeat",
+						inputs:{
+							times:{shadow:{
+								type:"shadow_number",
+								fields:{value:4},
+							}}
+						}
+					}
 				].map(block)
 			},
 			{
@@ -296,8 +445,24 @@ let toolbox;
 				kind: "category",
 				name: "literals",
 				contents: [
-					"const_number"
+					"const_number",
 				].map(block)
+			},
+			{
+				kind: "category",
+				name: "math",
+				contents: [
+					"binary_op_num",
+					"binary_op_bool",
+				].map(block),
+			},
+			{
+				kind: "category",
+				name: "other",
+				contents: [
+					"_misc_connector",
+					"_misc_null",
+				].map(block),
 			},
 		]
 	}

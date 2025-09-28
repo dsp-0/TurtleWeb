@@ -1,6 +1,7 @@
 
 let errmsg;
 let vars;
+let counter;
 
 tohex = (txt) => {
 	let hex="";
@@ -63,7 +64,7 @@ prepGen.scrub_ = (block, code, thisOnly) => {
 	return code+next
 };
 
-prepGen.forBlock["start"] = (b,g)=>"code='';";
+prepGen.forBlock["start"] = (b,g)=>"code='';vars={};";
 
 prepGen.forBlock['forward'] = function (block, generator) {
   return `Actions.push(Actions.move(${block.getFieldValue("distance") * block.getFieldValue("units")}));`
@@ -92,8 +93,7 @@ prepGen.forBlock["blank"] = (b,g)=>"";
 prepGen.forBlock["move"] = (b,g) => {
 	let val = prepGen.valueToCode(b,"dist",0);
 	if(!val) val=0;
-	val *= b.getFieldValue("units");
-	return `Actions.push(Actions.move(${val}));`;
+	return `Actions.push(Actions.move(${val}*${b.getFieldValue("units")}));`;
 };
 
 prepGen.forBlock["rotate"] = (b,g) => {
@@ -107,6 +107,30 @@ prepGen.forBlock["const_number"] = (b,g) => {
 }
 prepGen.forBlock["shadow_number"] = prepGen.forBlock["const_number"];
 
+prepGen.forBlock["shadow_bool"] = (b,g) =>{
+	return [b.getFieldValue("value").toLoverCase()=="true"? `true`:`false`,0];
+}
+
+prepGen.forBlock["repeat"] = (b,g) => {
+	let body = prepGen.statementToCode(b,"body",0);
+	vname = `"u_${counter++}"`
+	return `for(vars[${vname}]=0;vars[${vname}]<${prepGen.valueToCode(b,"times",0)};vars[${vname}]++){${body}}`;
+}
+
+prepGen.forBlock["_misc_connector"] = (b,g) => ["",0];
+
+prepGen.forBlock["binary_op_num"] = prepGen.forBlock["binary_op_bool"] = (b,g) => {
+	let op = b.getFieldValue("op");
+	op = {
+		sum: "+", prod: "*", diff: "-", quot: "/",
+		eq: "==", gt: ">", lt: "<", ne: "<>", ge: ">=", le: "<=",
+	}[op];
+	let left = prepGen.valueToCode(b,"left",0);
+	let right = prepGen.valueToCode(b,"right",0);
+	return [`(${left}${op}${right})`,0];
+};
+
 function makejs(w){
+	counter=0;
 	return prepGen.workspaceToCode(w)+"code";
 }

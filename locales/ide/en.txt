@@ -55,4 +55,7 @@ selected-device "Currently selected bluetooth device:"
 	{const_number-
 		message0 "number %1 %2"
 	}
+	{repeat-
+		message0 "repeat %1 times %2 %3"
+	}
 }
