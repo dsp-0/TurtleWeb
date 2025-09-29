@@ -80,8 +80,8 @@ let server = null;
 				return
 			}
 			start = start[0];
-			makeCode(eval(makejs(demoWorkspace)));
-			
+			makeCode(process(makejs(start)));
+			if(!navigator.bluetooth) return;
 			let options = {filters:[
 					{ services: ["01942846-0661-7c4a-8953-e76f2ae2e6e2"] },
 			]};

@@ -55,7 +55,37 @@ selected-device "Currently selected bluetooth device:"
 	{const_number-
 		message0 "number %1 %2"
 	}
+	{const_bool-
+		message0 "bool %1 %2"
+	}
+	{const_str-
+		message0 "string %1 %2"
+	}
 	{repeat-
 		message0 "repeat %1 times %2 %3"
+	}
+	{if-
+		message0 "if %1, then %3 %2"
+	}
+	{invert-
+		message0 "not %1"
+	}
+	{var_set-
+		message0 "set %1 to %2"
+	}
+	{var_num-
+		message0 "%1 as number"
+	}
+	{var_str-
+		message0 "%1 as string"
+	}
+	{var_func-
+		message0 "%1 as function"
+	}
+	{var_bool-
+		message0 "%1 as boolean"
+	}
+	{call0-
+		message0 "call %1"
 	}
 }
