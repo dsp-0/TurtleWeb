@@ -150,6 +150,8 @@ Blockly.common.defineBlocksWithJsonArray([
       "clockwise": true,
       "offset": 90,
       "value": 90,
+      "precision": 1,
+
       "max": 180
     },
     {
@@ -171,6 +173,7 @@ Blockly.common.defineBlocksWithJsonArray([
       "name": "angle",
       "offset": 90,
       "value": 90,
+      "precision": 1,
       "max": 180
     },
     {
