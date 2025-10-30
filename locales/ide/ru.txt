@@ -1,0 +1,58 @@
+send-to-robot "Отправить на робота"
+selected-device "Выбранное устройство:"
+
+{robot-
+	select "Выбрать робота"
+	send "Отправить на робота"
+	select_and_send "Выбрать и отправить"
+}
+
+{workspace-
+	clear "Очистить"
+	save "Сохранить"
+	load "Загрузить"
+}
+
+{block-
+	{forward-
+		message0 "вперед %1 %2 %3"
+		tooltip "Ехать вперёд"
+	}
+	{back-
+		message0 "назад %1 %2 %3"
+		tooltip "Ехать назад"
+	}
+	{feather_up-
+		message0 "поднять перо %1"
+		tooltip "При поднятом пере робот не оставляет за собой след, т.е. просто движется"
+	}
+	{feather_down-
+		message0 "опустить перо %1"
+		tooltip "При опущенном пере робот оставляет за собой след, т.е. рисует"
+	}
+	{eyes-
+		message0 "глаз левый %1 , правый %2 %3"
+		tooltip "Изменить цвет глаз"
+	}
+	{right-
+		message0 "повернуть вправо на %1 %2"
+		tooltip "Поворот по часовой"
+	}
+	{left-
+		message0 "повернуть влево на %1 %2"
+		tooltip "Поворот против часовой"
+	}
+	{start-
+		message0 "старт %1"
+		tooltip "Program starts here"
+	}
+	{move-
+		message0 "двигатся %2 %1"
+	}
+	{rotate-
+		message0 "поворот %1 degrees"
+	}
+	{const_number-
+		message0 "число %1 %2"
+	}
+}

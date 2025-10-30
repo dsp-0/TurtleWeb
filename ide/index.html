@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
+	<script src="/translate.js" data-dir="/locales/ide"></script>
     <title>Turtle control</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval';">
     <meta charset="utf-8" />
     <script src="./blockly/blockly_compressed.js"></script>
     <script src="./blockly/blocks_compressed.js"></script>
+	<!-- <script src="./blockly/javascript_compressed.js"></script> -->
     <script src="./blockly/msg/ru.js"></script>
     <script src="./blockly/anglefield.js"></script>
     <script src="./blockly/colorfield.js"></script>
+	<script src="./exec.js"></script>
     <style>
       body {
         background-color: #fff;
@@ -21,19 +24,43 @@
       .demo {
         padding: 1rem;
       }
+	/* .button{
+		background-color: #5f0;
+		padding: 4px 4px;
+		color: #fff;
+		text-align: center;
+		display: inline-block;
+		font-size: 16px;
+		border: none;
+	} */
     </style>
   </head>
   <body>
-    <button id="clickme">Send to robot</button>
+    <button id="clickme" data-t="send-to-robot"></button>
+	<!-- <button id="select-robot" data-t="robot-select"></button>
+	<button id="send-to-robot" data-t="robot-send"></button> -->
+	<button id="select-and-send" data-t="robot-select_and_send"></button>
+	<br>
+	<button id="clear-workspace" data-t="workspace-clear"></button>
+	<!-- <label for="file-input" class="button">load</label> -->
+	<input id="file-input" type="file" style="display: none;">
+	<button id="save-to-file" data-t="workspace-save"></button>
+	<button id="load-from-file" data-t="workspace-load"></button>
 <!--    <p>Currently selected bluetooth device: <strong id="device-name"></strong></p>
 -->
     <div class="demo">
       <div id="blocklyDiv" style="height: 480px; width: 100%"></div>
     </div>
-
+	<script src="./blocks.js"></script>
     <script src="./blockly.js"></script>
-
-
     <script src="./renderer.js"></script>
+	<div style="position:absolute;top:0;right:0;border-radius:5px">
+		<select id="language-selector">
+			<option value="*">default</option>
+			<option value="en">english / english (en)</option>
+			<option value="ru">russian / русский (ru)</option>
+			<option value="ar">arabic / (ar)</option>
+		</select>
+	</div>
   </body>
 </html>

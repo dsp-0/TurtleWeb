@@ -1,0 +1,91 @@
+send-to-robot "Send to robot"
+selected-device "Currently selected bluetooth device:"
+
+{robot-
+	select "Select robot"
+	send "Send to robot"
+	select_and_send "Select and send"
+}
+
+{workspace-
+	clear "Clear"
+	save "Save"
+	load "Load"
+}
+
+{block-
+	{forward-
+		message0 "Forward %1 %2 %3"
+		tooltip "Move forward"
+	}
+	{back-
+		message0 "Backward %1 %2 %3"
+		tooltip "Move backward"
+	}
+	{feather_up-
+		message0 "feather up %1"
+		tooltip "While the feather is up, the robot does not leave a trail (movement only)"
+	}
+	{feather_down-
+		message0 "feather down %1"
+		tooltip "While the feather is down, the robot leaves a trail (drawing)"
+	}
+	{eyes-
+		message0 "eye left %1 , right %2 %3"
+		tooltip "Change eyes color"
+	}
+	{right-
+		message0 "turn %1 clockwise %2"
+		tooltip "Rotate clockwise"
+	}
+	{left-
+		message0 "turn %1 counter-clockwise %2"
+		tooltip "Rotate counter-clockwise"
+	}
+	{start-
+		message0 "start %1"
+		tooltip "Program starts here"
+	}
+	{move-
+		message0 "move %2 %1"
+	}
+	{rotate-
+		message0 "turn %1 degrees"
+	}
+	{const_number-
+		message0 "number %1 %2"
+	}
+	{const_bool-
+		message0 "bool %1 %2"
+	}
+	{const_str-
+		message0 "string %1 %2"
+	}
+	{repeat-
+		message0 "repeat %1 times %2 %3"
+	}
+	{if-
+		message0 "if %1, then %3 %2"
+	}
+	{invert-
+		message0 "not %1"
+	}
+	{var_set-
+		message0 "set %1 to %2"
+	}
+	{var_num-
+		message0 "%1 as number"
+	}
+	{var_str-
+		message0 "%1 as string"
+	}
+	{var_func-
+		message0 "%1 as function"
+	}
+	{var_bool-
+		message0 "%1 as boolean"
+	}
+	{call0-
+		message0 "call %1"
+	}
+}
