@@ -41,4 +41,14 @@ selected-device "Currently selected bluetooth device:"
 		message0 "turn %1 counter-clockwise %2"
 		tooltip "Rotate counter-clockwise"
 	}
+	{repeat-
+		message0 "repeat %1 times: %2"
+		tooltip "Repeat this action given amount of times"
+	}
+	{call-
+		message0 "Call instruction with index %1 %2"
+	}
+	{ret-
+		message0 "Return %1"
+	}
 }

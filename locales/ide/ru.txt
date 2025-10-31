@@ -41,4 +41,14 @@ selected-device "Выбранное устройство:"
 		message0 "повернуть влево на %1 %2"
 		tooltip "Поворот против часовой"
 	}
+	{repeat-
+		message0 "Повторить %1 раз: %2"
+		tooltip "Repeat this action given amount of times"
+	}
+	{call-
+		message0 "Вызвать инструкцию с индексом %1 %2"
+	}
+	{ret-
+		message0 "Вернуться %1"
+	}
 }
