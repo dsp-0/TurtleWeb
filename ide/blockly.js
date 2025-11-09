@@ -184,7 +184,26 @@ Blockly.common.defineBlocksWithJsonArray([
   "previousStatement": null,
   "nextStatement": null,
   "colour": 0
-}
+},
+	{
+		type: "repeat",
+		tooltip: "repeat constexpr amount of times",
+		message0: "Повторить %1 раз %2",
+		previousStatement: null, nextStatement: null,
+		inputsInline: true,
+		args0: [
+			{
+				type: "field_number",
+				name: "times",
+				min: 2,
+				max: 64,
+				value: 4,
+			},{
+				type: "input_statement",
+				name: "body",
+			},
+		]
+	},
 
 ]);
 
@@ -219,6 +238,10 @@ Blockly.common.defineBlocksWithJsonArray([
             kind: 'block',
             type: 'eyes',
           },
+		  {
+			kind: "block",
+			type: "repeat"
+		  }
           
           /*{
             kind: 'block',
@@ -304,6 +327,13 @@ bytecodeGenerator.forBlock['left'] = function(block, generator) {
   return 'R-'+angle;
 };
 
+bytecodeGenerator.forBlock["repeat"] = function(block, generator) {
+	let body = generator.statementToCode(block,"body",0).trim();
+	let times = block.getFieldValue("times");
+
+	return `C${times-1},${body},E`;
+}
+
 const demoWorkspace = Blockly.inject('blocklyDiv', {
   media: './blockly/media/',
   toolbox: toolbox,
@@ -336,6 +366,14 @@ function makeCode(){
       data[i]=0xC000|lr[0];
       data[++i]=0xE000|lr[1];
     }
+	else if(s[0]=='C'){
+		const mask = 0xFFC0;
+		let times = +s.substring(1);
+		data[i] = times & (mask ^ 0xFFFF);
+	}
+		else if(s[0]=='E'){
+		data[i] = 0x0000;
+	}
     i++;
   }
   progBuf=data.slice(0,i);
