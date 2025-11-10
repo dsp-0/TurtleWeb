@@ -188,7 +188,7 @@ Blockly.common.defineBlocksWithJsonArray([
   {
     type: "repeat",
     tooltip: "repeat constexpr amount of times",
-    message0: "Повторить %1 раз %2",
+    message0: "Повторить %1 раз %2 %3",
     inputsInline: true,
     args0: [
       {
@@ -198,6 +198,9 @@ Blockly.common.defineBlocksWithJsonArray([
         max: 64,
         value: 4,
       },{
+        type: "input_dummy",
+        name: "timeszz",
+      },{
         type: "input_statement",
         name: "body",
       },
@@ -206,7 +209,7 @@ Blockly.common.defineBlocksWithJsonArray([
     "nextStatement": null,
     "colour": 32
   },
-
+                                                            
 ]);
 
 const toolbox = {
