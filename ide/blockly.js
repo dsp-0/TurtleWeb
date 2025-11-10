@@ -189,7 +189,6 @@ Blockly.common.defineBlocksWithJsonArray([
     type: "repeat",
     tooltip: "repeat constexpr amount of times",
     message0: "Повторить %1 раз %2",
-    previousStatement: null, nextStatement: null,
     inputsInline: true,
     args0: [
       {
@@ -202,7 +201,10 @@ Blockly.common.defineBlocksWithJsonArray([
         type: "input_statement",
         name: "body",
       },
-    ]
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 32
   },
 
 ]);
