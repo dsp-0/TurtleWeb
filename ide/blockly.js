@@ -14,260 +14,260 @@ for(let i=0; i<256; i++){
 
 registerFieldAngle();
 Blockly.common.defineBlocksWithJsonArray([
-{
-  "type": "forward",
-  "tooltip": "Ехать вперед",
-  "helpUrl": "",
-  "message0": "вперед %1 %2 %3",
-  "args0": [
-    {
-      "type": "field_number",
-      "name": "distance",
-      "value": 10,
-      "min": -3000,
-      "max": 3000
-    },
-    {
-      "type": "field_dropdown",
-      "name": "units",
-      "options": [
-        [
-          "cm",
-          "10"
-        ],
-        [
-          "mm",
-          "1"
+  {
+    "type": "forward",
+    "tooltip": "Ехать вперед",
+    "helpUrl": "",
+    "message0": "вперед %1 %2 %3",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "distance",
+        "value": 10,
+        "min": -3000,
+        "max": 3000
+      },
+      {
+        "type": "field_dropdown",
+        "name": "units",
+        "options": [
+          [
+            "cm",
+            "10"
+          ],
+          [
+            "mm",
+            "1"
+          ]
         ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 0
-},
-{
-  "type": "back",
-  "tooltip": "Ехать назад",
-  "helpUrl": "",
-  "message0": "назад %1 %2 %3",
-  "args0": [
-    {
-      "type": "field_number",
-      "name": "distance",
-      "value": 10,
-      "min": -128,
-      "max": 127
-    },
-    {
-      "type": "field_dropdown",
-      "name": "units",
-      "options": [
-        [
-          "cm",
-          "10"
-        ],
-        [
-          "mm",
-          "1"
+      },
+      {
+        "type": "input_dummy",
+        "name": "NAME"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 0
+  },
+  {
+    "type": "back",
+    "tooltip": "Ехать назад",
+    "helpUrl": "",
+    "message0": "назад %1 %2 %3",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "distance",
+        "value": 10,
+        "min": -128,
+        "max": 127
+      },
+      {
+        "type": "field_dropdown",
+        "name": "units",
+        "options": [
+          [
+            "cm",
+            "10"
+          ],
+          [
+            "mm",
+            "1"
+          ]
         ]
-      ]
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 0
-},
-{
-  "type": "feather_up",
-  "tooltip": "Поднять перо",
-  "helpUrl": "",
-  "message0": "Поднять перо %1",
-  "args0": [
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 60
-},
-{
-  "type": "feather_down",
-  "tooltip": "Опустить перо",
-  "helpUrl": "",
-  "message0": "Опустить перо %1",
-  "args0": [
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 60
-},
-{
-  "type": 'eyes',
-  "message0": 'Глаз левый %1 , правый %2 %3',
-  "args0": [
-    {
-      "type": 'field_colour_hsv_sliders',
-      "name": 'left',
-      "colour": '#40E0D0',
-    },
-    {
-      "type": 'field_colour_hsv_sliders',
-      "name": 'right',
-      "colour": '#CCCCFF',
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 219
-},
-{
-  "type": "right",
-  "tooltip": "Повернуть",
-  "helpUrl": "",
-  "message0": "повернуть на %1 вправо %2",
-  "args0": [{
-    "type": "field_angle",
-      "name": "angle",
-      "clockwise": true,
-      "offset": 90,
-      "value": 90,
-      "precision": 1,
+      },
+      {
+        "type": "input_dummy",
+        "name": "NAME"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 0
+  },
+  {
+    "type": "feather_up",
+    "tooltip": "Поднять перо",
+    "helpUrl": "",
+    "message0": "Поднять перо %1",
+    "args0": [
+      {
+        "type": "input_dummy",
+        "name": "NAME"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60
+  },
+  {
+    "type": "feather_down",
+    "tooltip": "Опустить перо",
+    "helpUrl": "",
+    "message0": "Опустить перо %1",
+    "args0": [
+      {
+        "type": "input_dummy",
+        "name": "NAME"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60
+  },
+  {
+    "type": 'eyes',
+    "message0": 'Глаз левый %1 , правый %2 %3',
+    "args0": [
+      {
+        "type": 'field_colour_hsv_sliders',
+        "name": 'left',
+        "colour": '#40E0D0',
+      },
+      {
+        "type": 'field_colour_hsv_sliders',
+        "name": 'right',
+        "colour": '#CCCCFF',
+      },
+      {
+        "type": "input_dummy",
+        "name": "NAME"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 219
+  },
+  {
+    "type": "right",
+    "tooltip": "Повернуть",
+    "helpUrl": "",
+    "message0": "повернуть на %1 вправо %2",
+    "args0": [{
+      "type": "field_angle",
+        "name": "angle",
+        "clockwise": true,
+        "offset": 90,
+        "value": 90,
+        "precision": 1,
 
-      "max": 180
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 0
-},
-{
-  "type": "left",
-  "tooltip": "Повернуть",
-  "helpUrl": "",
-  "message0": "повернуть на %1 влево %2",
-  "args0": [{
-    "type": "field_angle",
-      "name": "angle",
-      "offset": 90,
-      "value": 90,
-      "precision": 1,
-      "max": 180
-    },
-    {
-      "type": "input_dummy",
-      "name": "NAME"
-    }
-  ],
-  "previousStatement": null,
-  "nextStatement": null,
-  "colour": 0
-},
-	{
-		type: "repeat",
-		tooltip: "repeat constexpr amount of times",
-		message0: "Повторить %1 раз %2",
-		previousStatement: null, nextStatement: null,
-		inputsInline: true,
-		args0: [
-			{
-				type: "field_number",
-				name: "times",
-				min: 2,
-				max: 64,
-				value: 4,
-			},{
-				type: "input_statement",
-				name: "body",
-			},
-		]
-	},
+        "max": 180
+      },
+      {
+        "type": "input_dummy",
+        "name": "NAME"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 0
+  },
+  {
+    "type": "left",
+    "tooltip": "Повернуть",
+    "helpUrl": "",
+    "message0": "повернуть на %1 влево %2",
+    "args0": [{
+      "type": "field_angle",
+        "name": "angle",
+        "offset": 90,
+        "value": 90,
+        "precision": 1,
+        "max": 180
+      },
+      {
+        "type": "input_dummy",
+        "name": "NAME"
+      }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 0
+  },
+  {
+    type: "repeat",
+    tooltip: "repeat constexpr amount of times",
+    message0: "Повторить %1 раз %2",
+    previousStatement: null, nextStatement: null,
+    inputsInline: true,
+    args0: [
+      {
+        type: "field_number",
+        name: "times",
+        min: 2,
+        max: 64,
+        value: 4,
+      },{
+        type: "input_statement",
+        name: "body",
+      },
+    ]
+  },
 
 ]);
 
-      const toolbox = {
-        kind: 'flyoutToolbox',
-        contents: [
-          {
-            kind: 'block',
-            type: 'forward',
-          },
-          {
-            kind: 'block',
-            type: 'back',
-          },
-          {
-            kind: 'block',
-            type: 'right',
-          },
-          {
-            kind: 'block',
-            type: 'left',
-          },
-          {
-            kind: 'block',
-            type: 'feather_up',
-          },
-          {
-            kind: 'block',
-            type: 'feather_down',
-          },
-          {
-            kind: 'block',
-            type: 'eyes',
-          },
-		  {
-			kind: "block",
-			type: "repeat"
-		  }
-          
-          /*{
-            kind: 'block',
-            type: 'controls_repeat',
-          },
-          {
-            kind: 'block',
-            type: 'math_number',
-            fields: {
-              NUM: 123,
-            },
-          },*/
-          //{
-          //  kind: 'block',
-          //  type: 'math_arithmetic',
-          //},
-          //{
-          //  kind: 'block',
-          //  type: 'text',
-          //},
-          //{
-          //  kind: 'block',
-          //  type: 'text_print',
-          //},
-        ],
-      };
+const toolbox = {
+  kind: 'flyoutToolbox',
+  contents: [
+    {
+      kind: 'block',
+      type: 'forward',
+    },
+    {
+      kind: 'block',
+      type: 'back',
+    },
+    {
+      kind: 'block',
+      type: 'right',
+    },
+    {
+      kind: 'block',
+      type: 'left',
+    },
+    {
+      kind: 'block',
+      type: 'feather_up',
+    },
+    {
+      kind: 'block',
+      type: 'feather_down',
+    },
+    {
+      kind: 'block',
+      type: 'eyes',
+    },
+    {
+      kind: "block",
+      type: "repeat"
+    }
+    
+    /*{
+      kind: 'block',
+      type: 'controls_repeat',
+    },
+    {
+      kind: 'block',
+      type: 'math_number',
+      fields: {
+        NUM: 123,
+      },
+    },*/
+    //{
+    //  kind: 'block',
+    //  type: 'math_arithmetic',
+    //},
+    //{
+    //  kind: 'block',
+    //  type: 'text',
+    //},
+    //{
+    //  kind: 'block',
+    //  type: 'text_print',
+    //},
+  ],
+};
 const bytecodeGenerator = new Blockly.Generator('bytecode');
 
 bytecodeGenerator.scrub_ = function(block, code, thisOnly) {
@@ -328,10 +328,10 @@ bytecodeGenerator.forBlock['left'] = function(block, generator) {
 };
 
 bytecodeGenerator.forBlock["repeat"] = function(block, generator) {
-	let body = generator.statementToCode(block,"body",0).trim();
-	let times = block.getFieldValue("times");
+  let body = generator.statementToCode(block,"body",0).trim();
+  let times = block.getFieldValue("times");
 
-	return `C${times-1},${body},E`;
+  return `C${times-1},${body},E`;
 }
 
 const demoWorkspace = Blockly.inject('blocklyDiv', {
@@ -366,14 +366,14 @@ function makeCode(){
       data[i]=0xC000|lr[0];
       data[++i]=0xE000|lr[1];
     }
-	else if(s[0]=='C'){
-		const mask = 0xFFC0;
-		let times = +s.substring(1);
-		data[i] = times & (mask ^ 0xFFFF);
-	}
-		else if(s[0]=='E'){
-		data[i] = 0x0000;
-	}
+    else if(s[0]=='C'){
+      const mask = 0xFFC0;
+      let times = +s.substring(1);
+      data[i] = times & (mask ^ 0xFFFF);
+    }
+      else if(s[0]=='E'){
+      data[i] = 0x0000;
+    }
     i++;
   }
   progBuf=data.slice(0,i);
