@@ -12,6 +12,21 @@ for(let i=0; i<256; i++){
   else xrb[i]=++irb;
 }
 
+function b16(str){
+	const encoder = new TextEncoder();
+	const data = encoder.encode(str);
+	return Array.from(data).map(byte => byte.toString(16).padStart(2, '0')).join('');
+}
+
+function b16rev(hex){
+	const bytes = new Uint8Array(hex.length / 2);
+	for (let i = 0; i < hex.length; i += 2){
+		bytes[i/2] = parseInt(hex.substr(i, 2), 16);
+	}
+	const decoder = new TextDecoder();
+	return decoder.decode(bytes);
+}
+
 registerFieldAngle();
 Blockly.common.defineBlocksWithJsonArray([
 {
@@ -184,7 +199,42 @@ Blockly.common.defineBlocksWithJsonArray([
   "previousStatement": null,
   "nextStatement": null,
   "colour": 0
-}
+},
+{
+	type: "function",
+	tooltip: "define subprocedure",
+	message0: "Subprocedure %1 %2 %3",
+	args0: [
+		{
+			type: "field_input",
+			name: "id",
+		},
+		{
+			type: "input_dummy",
+		},
+		{
+			type: "input_statement",
+			name: "body",
+		},
+	],
+	colour: "#5a0",
+},
+{
+	type: "call",
+	tooltip: "call subprocedure",
+	message0: "Call %1 %2",
+	args0: [
+		{
+			type: "field_input",
+			name: "id",
+		},
+		{
+			type: "input_dummy",
+		},
+	],
+	previousStatement: null, nextStatement: null,
+	colour: "#5a0",
+},
 
 ]);
 
@@ -219,6 +269,14 @@ Blockly.common.defineBlocksWithJsonArray([
             kind: 'block',
             type: 'eyes',
           },
+		  {
+			kind: "block",
+			type: "function",
+		  },
+		  {
+			kind: "block",
+			type: "call",
+		  },
           
           /*{
             kind: 'block',
@@ -246,6 +304,69 @@ Blockly.common.defineBlocksWithJsonArray([
         ],
       };
 const bytecodeGenerator = new Blockly.Generator('bytecode');
+
+bytecodeGenerator.workspaceToCode = function(workspace) {
+	if (!workspace){
+		workspace = common.getMainWorkspace();
+	}
+	const code = [];
+	let funcs = [];
+	const blocks = workspace.getTopBlocks(true);
+	for (let i = 0, block; (block = blocks[i]); i++) {
+		let line = this.blockToCode(block);
+		// if(block.type=="function"){
+		// 	continue;
+		// }
+		if (Array.isArray(line)) {
+			// Value blocks return tuples of code and operator order.
+			// Top-level blocks don't care about operator order.
+			line = line[0];
+		}
+		if(block.type == "function"){
+			funcs.push(line);
+			continue;
+		}
+		if (line) {
+			if (block.outputConnection) {
+				// This block is a naked value.  Ask the language's code generator if
+				// it wants to append a semicolon, or something.
+				line = this.scrubNakedValue(line);
+				if (this.STATEMENT_PREFIX && !block.suppressPrefixSuffix) {
+					line = this.injectId(this.STATEMENT_PREFIX, block) + line;
+				}
+				if (this.STATEMENT_SUFFIX && !block.suppressPrefixSuffix) {
+					line = line + this.injectId(this.STATEMENT_SUFFIX, block);
+				}
+			}
+			code.push(line);
+		}
+	}
+	if(funcs.length>0){
+		code.push('2');
+	}
+	let codeString = (code.concat(funcs)).join(',');
+	return codeString;
+}
+
+bytecodeGenerator.statementToCode = function(block, name) {
+	const targetBlock = block.getInputTargetBlock(name);
+	if (!targetBlock && !block.getInput(name)) {
+		throw ReferenceError(`Input "${name}" doesn't exist on "${block.type}"`);
+	}
+	let code = this.blockToCode(targetBlock);
+	// Value blocks must return code and order of operations info.
+	// Statement blocks must only return code.
+	if (typeof code !== 'string') {
+		throw TypeError(
+			'Expecting code from statement block: ' +
+			(targetBlock && targetBlock.type),
+	);
+	}
+	// if (code) {
+	// 	code = this.prefixLines(code, this.INDENT);
+	// }
+	return code;
+}
 
 bytecodeGenerator.scrub_ = function(block, code, thisOnly) {
   const nextBlock =
@@ -304,6 +425,21 @@ bytecodeGenerator.forBlock['left'] = function(block, generator) {
   return 'R-'+angle;
 };
 
+bytecodeGenerator.forBlock["function"] = (block, generator) => {
+	let id = block.getFieldValue("id");
+	id = b16(id);
+	let body = generator.statementToCode(block, "body");
+	return `1${id},${body},2`;
+}
+
+bytecodeGenerator.forBlock["call"] = (block, generator) => {
+	return `0${b16(block.getFieldValue("id"))}`;
+}
+
+bytecodeGenerator.forBlock["return"] = (block, generator) => {
+	return '2';
+}
+
 const demoWorkspace = Blockly.inject('blocklyDiv', {
   media: './blockly/media/',
   toolbox: toolbox,
@@ -324,8 +460,11 @@ function makeCode(){
   code=bytecodeGenerator.workspaceToCode(demoWorkspace);
   data=new Uint16Array(1000);
   i=0;
+	let future_call = [];
+	let funcs = {};
   for(s of code.split(','))
   {
+	if(s.length==0) continue;
     if(s[0]=='F') data[i]=(+s.substring(1))&0x03FF|0x8000;
     else if(s[0]=='B') data[i]=(-s.substring(1))&0x03FF|0x8000;
     else if(s[0]=='R') data[i]=(+s.substring(1))&0x01FF|0x8400;
@@ -336,8 +475,37 @@ function makeCode(){
       data[i]=0xC000|lr[0];
       data[++i]=0xE000|lr[1];
     }
+	else if(s[0]=='0'){
+		let id = s.substring(1);
+		future_call.push([i, id]);
+	}
+	else if(s[0]=='1'){
+		while(i<2) i++;
+		let id = s.substring(1);
+		if(funcs[id] === undefined){
+			funcs[id] = i--;
+		}
+		else{
+			alert(`Function defined more than once: ${b16rev(id)}`);
+			progBuf = new Uint16Array(1);
+			return "0000";
+		}
+	}
+	else if(s[0]=='2'){
+		data[i] = 0;
+	}
     i++;
   }
+	for(let [i, id] of future_call){
+		if(funcs[id] === undefined){
+			alert(`Function not defined: ${b16rev(id)}`);
+			progBuf = new Uint16Array(1);
+			return "0000";
+		}
+		data[i] = (funcs[id]-1) & 0x03ff | 0x4000;
+	}
+
   progBuf=data.slice(0,i);
+  return Array.from(progBuf).map(x => x.toString(16).padStart(4,'0')).join('');
 //  document.getElementById('codelab').innerText=code;
 }
