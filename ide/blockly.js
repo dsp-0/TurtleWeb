@@ -340,17 +340,35 @@ bytecodeGenerator.forBlock["repeat"] = function(block, generator) {
 }
 
 const demoWorkspace = Blockly.inject('blocklyDiv', {
-  media: './blockly/media/',
-  toolbox: toolbox,
-  renderer: 'zelos',
-  zoom:
-    {controls: true,
-    wheel: true,
-    startScale: 0.8,
-    maxScale: 1,
-    minScale: 0.3,
-    scaleSpeed: 1.2,
-    pinch: true},
+	media: './blockly/media/',
+	toolbox: toolbox,
+	renderer: 'zelos',
+	// rtl: locale=="ar",
+	maxInstances:{
+		start:1
+	},
+	grid: {
+		spacing: 40,
+		snap: true,
+		length: 5,
+		colour: "#888",
+	},
+	zoom: {
+		controls: true,
+		startScale: 0.8,
+		maxScale: 1,
+		minScale: 0.1,
+		scaleSpeed: 1.5,
+		wheel: true,
+	},
+	move: {
+		scrollbars: {
+			horizontal: true,
+			vertical: true,
+		},
+		drag: true,
+		wheel: true,
+	},
 });
 
 progBuf=new Uint16Array(0);
@@ -384,3 +402,67 @@ function makeCode(){
   progBuf=data.slice(0,i);
 //  document.getElementById('codelab').innerText=code;
 }
+
+wtot =function (w){
+	return Blockly.Xml.domToText(Blockly.Xml.workspaceToDom(w))
+}
+ttow = function (text){
+	return Blockly.utils.xml.textToDom(text)
+}
+
+saveWorkspace = function (w){
+	localStorage["workspace"] = wtot(w);
+}
+
+loadWorkspace = function (w){
+	Blockly.Xml.clearWorkspaceAndLoadFromXml(ttow(localStorage["workspace"]), w);
+}
+
+if (localStorage["workspace"]){
+	loadWorkspace(demoWorkspace);
+}
+
+demoWorkspace.addChangeListener( event => {
+	if (event.type === Blockly.Events.BLOCK_CREATE ||
+		event.type === Blockly.Events.BLOCK_DELETE ||
+		event.type === Blockly.Events.BLOCK_MOVE ||
+		event.type === Blockly.Events.BLOCK_CHANGE){
+		saveWorkspace(demoWorkspace);
+	}
+});
+
+let savebtn = document.getElementById("save-to-file");
+let clearbtn = document.getElementById("clear-workspace");
+let loadinput = document.getElementById("file-input");
+if (savebtn){
+	savebtn.addEventListener("click", ()=>{
+		let blob = new Blob([wtot(demoWorkspace)], {type:"text/plain"});
+		let url = URL.createObjectURL(blob);
+		let a = document.createElement("a");
+		a.setAttribute("download", "workspace");
+		a.href = url;
+		a.click();
+	})
+}
+if (clearbtn){
+	clearbtn.addEventListener("click", ()=>{
+		localStorage.removeItem("workspace");
+		location.reload();
+	})
+}
+if (loadinput){
+	loadinput.addEventListener("change", (e)=>{
+		// console.log(e)
+		let file = e.target.files[0];
+		let reader = new FileReader();
+		reader.onload = e2 => {
+			Blockly.Xml.clearWorkspaceAndLoadFromXml(ttow(reader.result),demoWorkspace);
+			document.getElementById("file-input").value=''
+		}
+		reader.readAsText(file);
+	})
+}
+
+document.getElementById("load-from-file").addEventListener("click", e=>{
+	loadinput.click()
+})
