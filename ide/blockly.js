@@ -63,7 +63,7 @@ Blockly.common.defineBlocksWithJsonArray([
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 0
+  "colour": "#4F7CF7"
 },
 {
   "type": "back",
@@ -99,7 +99,7 @@ Blockly.common.defineBlocksWithJsonArray([
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 0
+  "colour": "#4F7CF7"
 },
 {
   "type": "feather_up",
@@ -114,7 +114,7 @@ Blockly.common.defineBlocksWithJsonArray([
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 60
+  "colour": "#4ED1C1"
 },
 {
   "type": "feather_down",
@@ -129,7 +129,7 @@ Blockly.common.defineBlocksWithJsonArray([
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 60
+  "colour": "#4ED1C1"
 },
 {
   "type": 'eyes',
@@ -176,7 +176,7 @@ Blockly.common.defineBlocksWithJsonArray([
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 0
+  "colour": "#7C6AED"
 },
 {
   "type": "left",
@@ -198,7 +198,7 @@ Blockly.common.defineBlocksWithJsonArray([
   ],
   "previousStatement": null,
   "nextStatement": null,
-  "colour": 0
+  "colour": "#7C6AED"
   },
   {
     type: "repeat",
@@ -222,7 +222,7 @@ Blockly.common.defineBlocksWithJsonArray([
     ],
     "previousStatement": null,
     "nextStatement": null,
-    "colour": 32
+    "colour": "#F6A04D"
   },
 {
 	type: "function",
@@ -241,7 +241,9 @@ Blockly.common.defineBlocksWithJsonArray([
 			name: "body",
 		},
 	],
-	colour: "#5a0",
+//	colour: "#10B981",
+//	colour: "#FF6680",
+	colour: "#D564C5",
 },
 {
 	type: "call",
@@ -257,7 +259,9 @@ Blockly.common.defineBlocksWithJsonArray([
 		},
 	],
 	previousStatement: null, nextStatement: null,
-	colour: "#5a0",
+//	colour: "#10B981",
+//	colour: "#FF6680",
+	colour: "#D564C5",
 },
 
 ]);
@@ -505,6 +509,15 @@ const demoWorkspace = Blockly.inject('blocklyDiv', {
 		drag: true,
 		wheel: true,
 	},
+  theme: {
+     componentStyles : {
+        workspaceBackgroundColour: "#F1F4F9",
+        toolboxBackgroundColour: "#FFFFFF",
+        flyoutBackgroundColour: "#FFFFFF",
+        scrollbarColour: "#5050B0",
+        scrollbarOpacity: 0.3, 
+     }
+  },
 });
 
 progBuf=new Uint16Array(0);
