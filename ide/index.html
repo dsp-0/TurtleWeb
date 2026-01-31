@@ -4,6 +4,7 @@
     <title>Turtle control</title>
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
     <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
     <script src="./blockly/blockly_compressed.js"></script>
     <script src="./blockly/blocks_compressed.js"></script>
     <script src="./blockly/msg/ru.js"></script>
@@ -11,7 +12,7 @@
     <script src="./blockly/colorfield.js"></script>
     <style>
       body {
-        background-color: #fff;
+        background-color: #F1F4F9;
         font-family: sans-serif;
       }
       h1 {
@@ -19,17 +20,56 @@
         font-size: 140%;
       }
       .demo {
-        padding: 1rem;
+        padding: 0.3rem;
       }
     </style>
   </head>
   <body>
-    <button id="clickme">Отправить роботу</button>
-	<br>
-	<button id="clear-workspace" data-t="workspace-clear">Очистить</button>
-	<input id="file-input" type="file" style="display: none;">
-	<button id="save-to-file" data-t="workspace-save">Сохранить в файл</button>
-	<button id="load-from-file" data-t="workspace-load">Загрузить из файла</button>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;" >
+      <!-- Определение символов -->
+      <symbol id="new-project" viewBox="0 0 32 32" fill="transparent"  stroke="#8070E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6L24 10V26H8V6ZV10H24M11 14h6M14 11v6"/>
+      </symbol>
+
+      <symbol id="open-project" viewBox="0 0 32 32" fill="transparent"  stroke="#8070E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12q0 -2 2 -2H25q2 0 2 2V24q0 2 -2 2H7q-2 0 -2 -2Zm2 -2H15L17 8H25q2 0 2 2v1"/>
+        <!-- Стрелка открытия (отраженная) -->
+<!--        <path d="M13 18L16 15L19 18"/>
+        <line x1="16" y1="15" x2="16" y2="21"/>
+-->
+      </symbol>
+      <symbol id="save-project" viewBox="0 0 32 32" fill="transparent"  stroke="#8070E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m25.5 3 h-22.5 v26 h26 v-22.5 z m-1.2 0 l4.5 4.5 m-18 -4.5 v8 h8 v-8m2 0 v8h-2 m4 18 v-12 h-18 v12 "/>
+      </symbol>
+
+      <symbol id="run-program" viewBox="0 0 32 32" fill="transparent"  stroke="#8070E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m8 6l16 10l-16 10z"/>
+      </symbol>
+    </svg>
+    <div style="container-type: size; height: 2rem;">
+      <button id="clear-workspace" data-t="workspace-clear" title="Новый проект" style="vertical-align: top;">
+        <svg style="width: 80cqh; height: 80cqh; vertical-align: middle;">
+          <use href="#new-project"/>
+        </svg>
+      </button>
+      <button id="load-from-file" data-t="workspace-load" title="Загрузить из файла" style="vertical-align: top;">
+        <svg  style="width: 80cqh; height: 80cqh; vertical-align: middle;">
+          <use href="#open-project"/>
+        </svg>
+      </button>
+      <input id="file-input" type="file" style="display: none;"/>
+      <input id="project-name" type="text" minlength="16" maxlenght="32"  placeholder="Имя проекта" style="vertical-align: top; line-height: 80cqh;"/>
+      <button id="save-to-file" data-t="workspace-save" title="Сохранить в файл" style="vertical-align: top;">
+        <svg  style="width: 80cqh; height: 80cqh; vertical-align: middle;">
+          <use href="#save-project"/>
+        </svg>
+      </button>
+      <button id="clickme" title="Отправить роботу" style="vertical-align: top;">
+        <svg  style="width: 80cqh; height: 80cqh; vertical-align: middle;">
+          <use href="#run-program"/>
+        </svg>
+      </button>
+    </div>
 <!--    <p>Currently selected bluetooth device: <strong id="device-name"></strong></p>
 -->
     <div class="demo">
