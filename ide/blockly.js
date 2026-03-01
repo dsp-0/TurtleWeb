@@ -396,8 +396,8 @@ const onresize = function(e) {
   // Position blocklyDiv over blocklyArea.
   blocklyDiv.style.left = x + 'px';
   blocklyDiv.style.top = y + 'px';
-  blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
-  blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+  blocklyDiv.style.width = (blocklyArea.offsetWidth - x) + 'px';
+  blocklyDiv.style.height = (blocklyArea.offsetHeight - y) + 'px';
   Blockly.svgResize(demoWorkspace);
 };
 window.addEventListener('resize', onresize, false);
