@@ -380,6 +380,29 @@ const demoWorkspace = Blockly.inject('blocklyDiv', {
   },
 });
 
+const blocklyArea = document.getElementById('blocklyArea');
+const blocklyDiv = document.getElementById('blocklyDiv');
+
+const onresize = function(e) {
+  // Compute the absolute coordinates and dimensions of blocklyArea.
+  let element = blocklyArea;
+  let x = 0;
+  let y = 0;
+  do {
+    x += element.offsetLeft;
+    y += element.offsetTop;
+    element = element.offsetParent;
+  } while (element);
+  // Position blocklyDiv over blocklyArea.
+  blocklyDiv.style.left = x + 'px';
+  blocklyDiv.style.top = y + 'px';
+  blocklyDiv.style.width = blocklyArea.offsetWidth + 'px';
+  blocklyDiv.style.height = blocklyArea.offsetHeight + 'px';
+  Blockly.svgResize(demoWorkspace);
+};
+window.addEventListener('resize', onresize, false);
+onresize();
+
 progBuf=new Uint16Array(0);
 
 function makeCode(){
