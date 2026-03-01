@@ -616,13 +616,15 @@ ttow = function (text){
 
 saveWorkspace = function (w){
 	localStorage["workspace"] = wtot(w);
+	localStorage["projectName"] = document.getElementById("project-name").value;
 }
 
 loadWorkspace = function (w){
 	Blockly.Xml.clearWorkspaceAndLoadFromXml(ttow(localStorage["workspace"]), w);
+	document.getElementById("project-name").value = localStorage["projectName"]
 }
 
-if (localStorage["workspace"]){
+if (localStorage["workspace"] && localStorage["projectName"]){
 	loadWorkspace(demoWorkspace);
 }
 
@@ -635,15 +637,23 @@ demoWorkspace.addChangeListener( event => {
 	}
 });
 
+document.getElementById("project-name").addEventListener("change", (e)=>{
+	saveWorkspace(demoWorkspace);
+})
+
 let savebtn = document.getElementById("save-to-file");
 let clearbtn = document.getElementById("clear-workspace");
 let loadinput = document.getElementById("file-input");
 if (savebtn){
 	savebtn.addEventListener("click", ()=>{
-		let blob = new Blob([wtot(demoWorkspace)], {type:"text/plain"});
+		let text = [wtot(demoWorkspace), document.getElementById("project-name").value]
+			.map(x => b16(x))
+			.join(":");
+		let blob = new Blob([text], {type:"text/plain"});
 		let url = URL.createObjectURL(blob);
 		let a = document.createElement("a");
-		a.setAttribute("download", "workspace");
+		let pname = document.getElementById("project-name").value;
+		a.setAttribute("download", pname);
 		a.href = url;
 		a.click();
 	})
@@ -651,6 +661,7 @@ if (savebtn){
 if (clearbtn){
 	clearbtn.addEventListener("click", ()=>{
 		localStorage.removeItem("workspace");
+		localStorage.removeItem("projectName");
 		location.reload();
 	})
 }
@@ -660,7 +671,13 @@ if (loadinput){
 		let file = e.target.files[0];
 		let reader = new FileReader();
 		reader.onload = e2 => {
-			Blockly.Xml.clearWorkspaceAndLoadFromXml(ttow(reader.result),demoWorkspace);
+			// Blockly.Xml.clearWorkspaceAndLoadFromXml(ttow(reader.result),demoWorkspace);
+			let data = reader.result.split(":")
+				.map(x => b16rev(x));
+			console.log(data);
+			localStorage["workspace"] = data[0];
+			localStorage["projectName"] = data[1];
+			loadWorkspace(demoWorkspace);
 			document.getElementById("file-input").value=''
 		}
 		reader.readAsText(file);
