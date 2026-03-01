@@ -14,13 +14,26 @@
       body {
         background-color: #F1F4F9;
         font-family: sans-serif;
+		overflow: hidden;
       }
+	  html, body {
+		height: 100%;
+		margin: 0;
+		padding: 0;
+		}
       h1 {
         font-weight: normal;
         font-size: 140%;
       }
       .demo {
         padding: 0.3rem;
+      }
+		table {
+        height: 100%;
+        width: 100%;
+      }
+      #blocklyArea {
+        height: 99%;
       }
     </style>
   </head>
@@ -72,9 +85,17 @@
     </div>
 <!--    <p>Currently selected bluetooth device: <strong id="device-name"></strong></p>
 -->
-    <div class="demo">
-      <div id="blocklyDiv" style="height: 480px; width: 100%"></div>
-    </div>
+
+	<table>
+	<tr>
+		<td id="blocklyArea"></td>
+	</tr>
+	</table>
+
+    <!-- <div class="demo"> -->
+      <!-- <div id="blocklyDiv" style="height: 480px; width: 100%"></div> -->
+	   <div id="blocklyDiv" style="position: absolute"></div>
+    <!-- </div> -->
 
     <script src="./blockly.js"></script>
 
