@@ -5,404 +5,452 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoboTurtle - Робот-черепашка для обучения детей программированию</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-        }
-        
-        .logo span {
-            color: #FFD700;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .hero {
-            background-color: #E8F5E9;
-            padding: 80px 0;
-            text-align: center;
-        }
-        
-        .hero h1 {
-            font-size: 48px;
-            margin-bottom: 20px;
-            color: #2E7D32;
-        }
-        
-        .hero p {
-            font-size: 20px;
-            max-width: 800px;
-            margin: 0 auto 30px;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: #FFC107;
-            color: #333;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: all 0.3s;
-        }
-        
-        .btn:hover {
-            background-color: #FFD700;
-            transform: translateY(-3px);
-        }
-        
-        .features {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .section-title {
-            text-align: center;
-            margin-bottom: 60px;
-            font-size: 36px;
-            color: #2E7D32;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        
-        .feature-card {
-            text-align: center;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .feature-icon {
-            font-size: 50px;
-            color: #4CAF50;
-            margin-bottom: 20px;
-        }
-        
-        .feature-card h3 {
-            margin-bottom: 15px;
-            font-size: 22px;
-        }
-        
-        .product-showcase {
-            padding: 80px 0;
-            background-color: #F1F8E9;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    body {
+        color: #333;
+        line-height: 1.6;
+        background-color: #F1F4F9;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    header {
+        background-color: #FFFFFF;
+        padding: 20px 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .logo a {
+        text-decoration: none;
+        color: #4CAF50;  /* keep green for logo */
+    }
+    
+    .logo span {
+        color: #FFD700;   /* keep gold */
+    }
+    
+    nav ul {
+        display: flex;
+        list-style: none;
+    }
+    
+    nav ul li {
+        margin-left: 30px;
+    }
+    
+    nav ul li a {
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    .hero {
+        background-color: #F1F4F9;
+        padding: 80px 0;
+        text-align: center;
+    }
+    
+    .hero h1 {
+        font-size: 48px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    .hero p {
+        font-size: 20px;
+        max-width: 800px;
+        margin: 0 auto 30px;
+        color: #555;
+    }
+    
+    .btn {
+        display: inline-block;
+        background-color: #5050B0;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .btn:hover {
+        background-color: #4040A0;
+        transform: translateY(-3px);
+    }
+    
+    .btn-white {
+        background-color: white;
+        color: #5050B0;
+    }
+    
+    .btn-white:hover {
+        background-color: #f0f0f0;
+        color: #4040A0;
+    }
+    
+    .features {
+        padding: 80px 0;
+        background-color: white;
+    }
+    
+    .section-title {
+        text-align: center;
+        margin-bottom: 60px;
+        font-size: 36px;
+        color: #333;
+        position: relative;
+    }
+    
+    .section-title:after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: #5050B0;
+        margin: 15px auto 0;
+        border-radius: 2px;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    
+    .feature-card {
+        text-align: center;
+        padding: 30px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        transition: transform 0.3s;
+        border: 1px solid #E0E0E0;
+    }
+    
+    .feature-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(80,80,176,0.1);
+    }
+    
+    .feature-icon {
+        font-size: 50px;
+        color: #8070E0;
+        margin-bottom: 20px;
+    }
+    
+    .feature-card h3 {
+        margin-bottom: 15px;
+        font-size: 22px;
+        color: #333;
+    }
+    
+    .product-showcase {
+        padding: 80px 0;
+        background-color: #F1F4F9;
+    }
+    
+    .showcase-content {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+    }
+    
+    .showcase-text {
+        flex: 1;
+    }
+    
+    .showcase-image {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .showcase-image img {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    
+    .showcase-text h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    .showcase-text ul {
+        margin: 30px 0;
+        padding-left: 20px;
+    }
+    
+    .showcase-text li {
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: #555;
+    }
+    
+    .pricing {
+        padding: 80px 0;
+        background-color: white;
+    }
+    
+    .pricing-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .pricing-card {
+        text-align: center;
+        padding: 40px 30px;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        border: 1px solid #E0E0E0;
+        transition: transform 0.3s;
+    }
+    
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        border-color: #5050B0;
+    }
+    
+    .popular {
+        border: 2px solid #5050B0;
+        position: relative;
+    }
+    
+    .popular-badge {
+        position: absolute;
+        top: -15px;
+        right: 20px;
+        background-color: #5050B0;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 30px;
+        font-weight: bold;
+        font-size: 14px;
+    }
+    
+    .pricing-card h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    
+    .price {
+        font-size: 36px;
+        font-weight: bold;
+        color: #5050B0;
+        margin-bottom: 20px;
+    }
+    
+    .price span {
+        font-size: 16px;
+        color: #666;
+    }
+    
+    .pricing-card ul {
+        list-style: none;
+        margin-bottom: 30px;
+    }
+    
+    .pricing-card ul li {
+        margin-bottom: 10px;
+        padding: 8px 0;
+        border-bottom: 1px solid #eee;
+        color: #555;
+    }
+    
+    .testimonials {
+        padding: 80px 0;
+        background-color: #F1F4F9;
+    }
+    
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+    }
+    
+    .testimonial-card {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        border: 1px solid #E0E0E0;
+    }
+    
+    .testimonial-text {
+        font-style: italic;
+        margin-bottom: 20px;
+        color: #555;
+    }
+    
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+    }
+    
+    .author-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #ddd;
+        margin-right: 15px;
+        overflow: hidden;
+    }
+    
+    .author-info h4 {
+        margin-bottom: 5px;
+        color: #333;
+    }
+    
+    .author-info p {
+        color: #666;
+        font-size: 14px;
+    }
+    
+    .cta {
+        padding: 80px 0;
+        background-color: #5050B0;
+        color: white;
+        text-align: center;
+    }
+    
+    .cta h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+    
+    .cta p {
+        max-width: 700px;
+        margin: 0 auto 30px;
+        font-size: 20px;
+    }
+    
+    footer {
+        background-color: #333;
+        color: white;
+        padding: 50px 0 20px;
+    }
+    
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-logo {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    
+    .footer-logo a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    .footer-logo span {
+        color: #FFD700;
+    }
+    
+    .footer-about p {
+        margin-bottom: 20px;
+        color: #BDBDBD;
+    }
+    
+    .social-links a {
+        display: inline-block;
+        margin-right: 15px;
+        color: white;
+        font-size: 20px;
+    }
+    
+    .footer-links h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: white;
+    }
+    
+    .footer-links ul {
+        list-style: none;
+    }
+    
+    .footer-links ul li {
+        margin-bottom: 10px;
+    }
+    
+    .footer-links ul li a {
+        color: #BDBDBD;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    
+    .footer-links ul li a:hover {
+        color: white;
+    }
+    
+    .copyright {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: #BDBDBD;
+        font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+        .features-grid, .pricing-cards, .testimonials-grid, .footer-content {
+            grid-template-columns: 1fr;
         }
         
         .showcase-content {
-            display: flex;
-            align-items: center;
-            gap: 50px;
+            flex-direction: column;
         }
         
-        .showcase-text {
-            flex: 1;
+        nav ul {
+            display: none;
         }
         
-        .showcase-image {
-            flex: 1;
-            text-align: center;
-        }
-        
-        .showcase-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        
-        .showcase-text h2 {
+        .hero h1 {
             font-size: 36px;
-            margin-bottom: 20px;
-            color: #2E7D32;
         }
-        
-        .showcase-text ul {
-            margin: 30px 0;
-            padding-left: 20px;
-        }
-        
-        .showcase-text li {
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        
-        .pricing {
-            padding: 80px 0;
-            background-color: white;
-        }
-        
-        .pricing-cards {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .pricing-card {
-            text-align: center;
-            padding: 40px 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border: 2px solid #E0E0E0;
-        }
-        
-        .popular {
-            border: 2px solid #4CAF50;
-            position: relative;
-        }
-        
-        .popular-badge {
-            position: absolute;
-            top: -15px;
-            right: 20px;
-            background-color: #FFC107;
-            color: #333;
-            padding: 5px 15px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 14px;
-        }
-        
-        .pricing-card h3 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        
-        .price {
-            font-size: 36px;
-            font-weight: bold;
-            color: #2E7D32;
-            margin-bottom: 20px;
-        }
-        
-        .price span {
-            font-size: 16px;
-            color: #666;
-        }
-        
-        .pricing-card ul {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-        
-        .pricing-card ul li {
-            margin-bottom: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .testimonials {
-            padding: 80px 0;
-            background-color: #F1F8E9;
-        }
-        
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-        
-        .testimonial-card {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .testimonial-text {
-            font-style: italic;
-            margin-bottom: 20px;
-        }
-        
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-        }
-        
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #ddd;
-            margin-right: 15px;
-            overflow: hidden;
-        }
-        
-        .author-info h4 {
-            margin-bottom: 5px;
-        }
-        
-        .author-info p {
-            color: #666;
-            font-size: 14px;
-        }
-        
-        .cta {
-            padding: 80px 0;
-            background-color: #4CAF50;
-            color: white;
-            text-align: center;
-        }
-        
-        .cta h2 {
-            font-size: 36px;
-            margin-bottom: 20px;
-        }
-        
-        .cta p {
-            max-width: 700px;
-            margin: 0 auto 30px;
-            font-size: 20px;
-        }
-        
-        .btn-white {
-            background-color: white;
-            color: #4CAF50;
-        }
-        
-        footer {
-            background-color: #2E7D32;
-            color: white;
-            padding: 50px 0 20px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-logo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        
-        .footer-logo span {
-            color: #FFD700;
-        }
-        
-        .footer-about p {
-            margin-bottom: 20px;
-        }
-        
-        .social-links a {
-            display: inline-block;
-            margin-right: 15px;
-            color: white;
-            font-size: 20px;
-        }
-        
-        .footer-links h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-        
-        .footer-links ul {
-            list-style: none;
-        }
-        
-        .footer-links ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links ul li a {
-            color: #BDBDBD;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links ul li a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #BDBDBD;
-            font-size: 14px;
-        }
-        
-        @media (max-width: 768px) {
-            .features-grid, .pricing-cards, .testimonials-grid, .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            .showcase-content {
-                flex-direction: column;
-            }
-            
-            nav ul {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 36px;
-            }
-        }
-    </style>
+    }
+</style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="container">
             <nav>
-                <div class="logo"><a href="/" style="text-decoration: none; color: white;">Robo<span>Turtle</span></a></div>
+                <div class="logo"><a href="/" style="text-decoration: none;">Robo<span>Turtle</span></a></div>
                 <a href="ide" class="btn">Программировать</a>
                 <ul>
                     <li><a href="#features">Возможности</a></li>
@@ -601,7 +649,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-about">
-                    <div class="footer-logo">Robo<span>Turtle</span></div>
+                    <div class="logo"><a href="/" style="text-decoration: none;">Robo<span>Turtle</span></a></div>
                     <p>Инновационный образовательный робот для обучения детей основам программирования в игровой форме.</p>
                     <div class="social-links">
                         <!-- <a href="#"><i class="fab fa-vk"></i></a> -->

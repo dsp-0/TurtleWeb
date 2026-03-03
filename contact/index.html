@@ -5,422 +5,437 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoboTurtle - Контакты и информация</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-        
-        body {
-            color: #333;
-            line-height: 1.6;
-            background-color: #F5F5F5;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 20px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-			color: white;
-        }
-        
-        .logo span {
-            color: #FFD700;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Arial', sans-serif;
+    }
+    
+    body {
+        color: #333;
+        line-height: 1.6;
+        background-color: #F1F4F9;
+    }
+    
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+    }
+    
+    header {
+        background-color: #FFFFFF;
+        padding: 20px 0;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+    }
+    
+    .logo a {
+        text-decoration: none;
+        color: #4CAF50;
+    }
+    
+    .logo span {
+        color: #FFD700;
+    }
+    
+    nav ul {
+        display: flex;
+        list-style: none;
+    }
+    
+    nav ul li {
+        margin-left: 30px;
+    }
+    
+    nav ul li a {
+        color: #333;
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    .btn {
+        display: inline-block;
+        background-color: #5050B0;
+        color: white;
+        padding: 12px 30px;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: bold;
+        font-size: 18px;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .btn:hover {
+        background-color: #4040A0;
+        transform: translateY(-3px);
+    }
+    
+    .section {
+        padding: 60px 0;
+    }
+    
+    .section-title {
+        text-align: center;
+        margin-bottom: 50px;
+        font-size: 36px;
+        color: #333;
+        position: relative;
+    }
+    
+    .section-title:after {
+        content: '';
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: #5050B0;
+        margin: 15px auto 0;
+        border-radius: 2px;
+    }
+    
+    /* Контакты */
+    .contacts-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .contact-card {
+        background-color: white;
+        border-radius: 20px;
+        padding: 40px 30px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid #E0E0E0;
+        transition: transform 0.3s;
+    }
+    
+    .contact-card:hover {
+        transform: translateY(-10px);
+        border-color: #5050B0;
+    }
+    
+    .contact-icon {
+        width: 80px;
+        height: 80px;
+        background-color: #5050B0;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        margin: 0 auto 25px;
+    }
+    
+    .contact-card h3 {
+        font-size: 24px;
+        color: #333;
+        margin-bottom: 15px;
+    }
+    
+    .contact-value {
+        font-size: 20px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 15px;
+        word-break: break-word;
+    }
+    
+    .contact-link {
+        display: inline-block;
+        color: #5050B0;
+        text-decoration: none;
+        font-size: 16px;
+        padding: 8px 20px;
+        border: 2px solid #5050B0;
+        border-radius: 30px;
+        transition: all 0.3s;
+    }
+    
+    .contact-link:hover {
+        background-color: #5050B0;
+        color: white;
+    }
+    
+    /* Комплекты */
+    .packages-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin-top: 30px;
+    }
+    
+    .package-card {
+        background-color: white;
+        border-radius: 20px;
+        padding: 40px 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        border: 1px solid #E0E0E0;
+        position: relative;
+        transition: transform 0.3s;
+    }
+    
+    .package-card:hover {
+        transform: translateY(-10px);
+        border-color: #5050B0;
+    }
+    
+    .popular-badge {
+        position: absolute;
+        top: -12px;
+        right: 20px;
+        background-color: #5050B0;
+        color: white;
+        padding: 5px 20px;
+        border-radius: 30px;
+        font-weight: bold;
+        font-size: 14px;
+        box-shadow: 0 3px 10px rgba(80,80,176,0.3);
+    }
+    
+    .package-card h3 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    .package-price {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+        color: #5050B0;
+        margin-bottom: 25px;
+        padding-bottom: 20px;
+        border-bottom: 2px dashed #E0E0E0;
+    }
+    
+    .package-price span {
+        font-size: 16px;
+        color: #666;
+        font-weight: normal;
+    }
+    
+    .package-features {
+        list-style: none;
+        margin-bottom: 25px;
+    }
+    
+    .package-features li {
+        margin-bottom: 12px;
+        padding-left: 30px;
+        position: relative;
+        color: #555;
+    }
+    
+    .package-features li:before {
+        content: '✓';
+        color: #5050B0;
+        position: absolute;
+        left: 0;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    
+    .package-note {
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+        font-style: italic;
+        padding-top: 15px;
+        border-top: 1px solid #E0E0E0;
+    }
+    
+    /* FAQ */
+    .faq-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+    
+    .faq-item {
+        background-color: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        border: 1px solid #E0E0E0;
+        transition: box-shadow 0.3s;
+    }
+    
+    .faq-item:hover {
+        box-shadow: 0 10px 30px rgba(80,80,176,0.1);
+    }
+    
+    .faq-question {
+        color: #333;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .faq-question i {
+        color: #5050B0;
+        margin-right: 10px;
+        font-size: 20px;
+    }
+    
+    .faq-answer {
+        color: #666;
+        padding-left: 30px;
+        line-height: 1.7;
+    }
+    
+    /* Информационный блок */
+    .info-block {
+        background-color: #FFFFFF;
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        margin-top: 40px;
+        border: 1px solid #E0E0E0;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .info-block h3 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    .info-block p {
+        color: #555;
+        font-size: 18px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    
+    footer {
+        background-color: #333;
+        color: white;
+        padding: 50px 0 20px;
+        margin-top: 60px;
+    }
+    
+    .footer-content {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+    }
+    
+    .footer-logo {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    
+    .footer-logo a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    .footer-logo span {
+        color: #FFD700;
+    }
+    
+    .footer-links h3 {
+        font-size: 18px;
+        margin-bottom: 20px;
+        color: white;
+    }
+    
+    .footer-links ul {
+        list-style: none;
+    }
+    
+    .footer-links ul li {
+        margin-bottom: 10px;
+    }
+    
+    .footer-links ul li a {
+        color: #BDBDBD;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    
+    .footer-links ul li a:hover {
+        color: white;
+    }
+    
+    .copyright {
+        text-align: center;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: #BDBDBD;
+        font-size: 14px;
+    }
+    
+    @media (max-width: 768px) {
+        .contacts-grid,
+        .packages-grid,
+        .faq-grid,
+        .footer-content {
+            grid-template-columns: 1fr;
         }
         
         nav ul {
-            display: flex;
-            list-style: none;
-        }
-        
-        nav ul li {
-            margin-left: 30px;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .btn {
-            display: inline-block;
-            background-color: #FFC107;
-            color: #333;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .btn:hover {
-            background-color: #FFD700;
-            transform: translateY(-3px);
-        }
-        
-        .section {
-            padding: 60px 0;
+            display: none;
         }
         
         .section-title {
-            text-align: center;
-            margin-bottom: 50px;
-            font-size: 36px;
-            color: #2E7D32;
-            position: relative;
-        }
-        
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, #4CAF50, #FFD700);
-            margin: 15px auto 0;
-            border-radius: 2px;
-        }
-        
-        /* Контакты */
-        .contacts-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .contact-card {
-            background-color: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .contact-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .contact-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            margin: 0 auto 25px;
-        }
-        
-        .contact-card h3 {
-            font-size: 24px;
-            color: #2E7D32;
-            margin-bottom: 15px;
-        }
-        
-        .contact-value {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 15px;
-            word-break: break-word;
-        }
-        
-        .contact-link {
-            display: inline-block;
-            color: #4CAF50;
-            text-decoration: none;
-            font-size: 16px;
-            padding: 8px 20px;
-            border: 2px solid #4CAF50;
-            border-radius: 30px;
-            transition: all 0.3s;
-        }
-        
-        .contact-link:hover {
-            background-color: #4CAF50;
-            color: white;
-        }
-        
-        /* Комплекты */
-        .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin-top: 30px;
+            font-size: 28px;
         }
         
         .package-card {
-            background-color: white;
-            border-radius: 20px;
-            padding: 40px 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            position: relative;
-            transition: transform 0.3s;
+            padding: 30px 20px;
         }
-        
-        .package-card:hover {
-            transform: translateY(-10px);
+    }
+    
+    /* Анимации */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
         }
-        
-        .popular-badge {
-            position: absolute;
-            top: -12px;
-            right: 20px;
-            background-color: #FFC107;
-            color: #333;
-            padding: 5px 20px;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 14px;
-            box-shadow: 0 3px 10px rgba(255,193,7,0.3);
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
-        
-        .package-card h3 {
-            font-size: 28px;
-            color: #2E7D32;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .package-price {
-            text-align: center;
-            font-size: 32px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 2px dashed #E0E0E0;
-        }
-        
-        .package-price span {
-            font-size: 16px;
-            color: #666;
-            font-weight: normal;
-        }
-        
-        .package-features {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-        
-        .package-features li {
-            margin-bottom: 12px;
-            padding-left: 30px;
-            position: relative;
-            color: #555;
-        }
-        
-        .package-features li:before {
-            content: '✓';
-            color: #4CAF50;
-            position: absolute;
-            left: 0;
-            font-weight: bold;
-            font-size: 18px;
-        }
-        
-        .package-note {
-            text-align: center;
-            color: #666;
-            font-size: 14px;
-            font-style: italic;
-            padding-top: 15px;
-            border-top: 1px solid #E0E0E0;
-        }
-        
-        /* FAQ */
-        .faq-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            background-color: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            transition: box-shadow 0.3s;
-        }
-        
-        .faq-item:hover {
-            box-shadow: 0 10px 30px rgba(76,175,80,0.1);
-        }
-        
-        .faq-question {
-            color: #2E7D32;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .faq-question i {
-            color: #4CAF50;
-            margin-right: 10px;
-            font-size: 20px;
-        }
-        
-        .faq-answer {
-            color: #666;
-            padding-left: 30px;
-            line-height: 1.7;
-        }
-        
-        /* Информационный блок */
-        .info-block {
-            background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            margin-top: 40px;
-        }
-        
-        .info-block h3 {
-            color: #2E7D32;
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-        
-        .info-block p {
-            color: #333;
-            font-size: 18px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        footer {
-            background-color: #2E7D32;
-            color: white;
-            padding: 50px 0 20px;
-            margin-top: 60px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-        
-        .footer-logo {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        
-        .footer-logo span {
-            color: #FFD700;
-        }
-        
-        .footer-links h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
-            color: white;
-        }
-        
-        .footer-links ul {
-            list-style: none;
-        }
-        
-        .footer-links ul li {
-            margin-bottom: 10px;
-        }
-        
-        .footer-links ul li a {
-            color: #BDBDBD;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-links ul li a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: #BDBDBD;
-            font-size: 14px;
-        }
-        
-        @media (max-width: 768px) {
-            .contacts-grid,
-            .packages-grid,
-            .faq-grid,
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-            
-            nav ul {
-                display: none;
-            }
-            
-            .section-title {
-                font-size: 28px;
-            }
-            
-            .package-card {
-                padding: 30px 20px;
-            }
-        }
-        
-        /* Анимации */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        .contact-card,
-        .package-card,
-        .faq-item {
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-    </style>
+    }
+    
+    .contact-card,
+    .package-card,
+    .faq-item {
+        animation: fadeInUp 0.5s ease-out forwards;
+    }
+</style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <header>
         <div class="container">
             <nav>
-                <div class="logo"><a href="/" style="text-decoration: none; color: white;">Robo<span>Turtle</span></a></div>
+                <div class="logo"><a href="/" style="text-decoration: none;">Robo<span>Turtle</span></a></div>
                 <ul>
                     <li><a href="#contacts">Контакты</a></li>
                     <li><a href="#packages">Комплекты</a></li>
@@ -537,17 +552,17 @@
             </div>
 
             <div style="text-align: center; margin-top: 30px; color: #666;">
-                <p><i class="fas fa-gift" style="color: #4CAF50; margin-right: 8px;"></i> При заказе от 2 комплектов - скидка 10%. Для школ и детских центров специальные условия.</p>
+                <p><i class="fas fa-gift" style="color: #5050B0; margin-right: 8px;"></i> При заказе от 2 комплектов - скидка 10%. Для школ и детских центров специальные условия.</p>
             </div>
 			            <!-- Панель с информацией о заказе -->
             <div style="text-align: center; margin-top: 40px;">
                 <a href="#contacts" style="text-decoration: none;">
-                    <div style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(76,175,80,0.3); display: inline-block; max-width: 600px; width: 100%; transition: transform 0.3s;">
-                        <i class="fas fa-envelope" style="font-size: 32px; margin-bottom: 10px; color: #FFD700;"></i>
-                        <h3 style="font-size: 24px; margin-bottom: 10px; color: white;">Для заказа свяжитесь с нами</h3>
+                    <div style="background-color: white; color: #333; padding: 25px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #E0E0E0; display: inline-block; max-width: 600px; width: 100%; transition: transform 0.3s;">
+                        <i class="fas fa-envelope" style="font-size: 32px; margin-bottom: 10px; color: #5050B0;"></i>
+                        <h3 style="font-size: 24px; margin-bottom: 10px; color: #333;">Для заказа свяжитесь с нами</h3>
                         <p style="font-size: 18px; opacity: 0.95;">Перейдите в раздел контактов и выберите удобный способ связи</p>
-                        <div style="margin-top: 15px; font-size: 16px; color: #FFD700;">
-                            <i class="fas fa-arrow-down" style="margin-right: 8px;"></i>Нажмите, чтобы перейти к контактам
+                        <div style="margin-top: 15px; font-size: 16px; color: #5050B0;">
+                            <i class="fas fa-arrow-down" style="margin-right: 8px; color: #5050B0;"></i>Нажмите, чтобы перейти к контактам
                         </div>
                     </div>
                 </a>
@@ -648,7 +663,7 @@
         <div class="container">
             <div class="footer-content">
                 <div>
-                    <div class="footer-logo"><a href="/" style="text-decoration: none; color: white;">Robo<span>Turtle</span></a></div>
+                    <div class="logo"><a href="/" style="text-decoration: none;">Robo<span>Turtle</span></a></div>
                     <p>Инновационный образовательный робот для обучения детей основам программирования в игровой форме.</p>
                 </div>
                 <div class="footer-links">
